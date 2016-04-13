@@ -6,7 +6,7 @@ public class GameController : MonoBehaviour {
     
     public GameObject player;
 
-    private GameManager gm;
+    protected GameManager gm;
     private Button wButton;
     private Button eButton;
     private Button sButton;
@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour {
         sButton.onClick.AddListener(() => (Liiku(-1, "ve")));
         nButton.onClick.AddListener(() => (Liiku(1, "ve")));
 
-        gm = (GameManager)GameObject.Find("GameManager").GetComponent<GameManager>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
 	}
 	

@@ -11,7 +11,8 @@ public class Enemy : GameController {
     private int hp;
 
     void Start () {
-        gm = (GameManager)GameObject.Find("GameManager").GetComponent<GameManager>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         target = GameObject.FindGameObjectWithTag("Player").transform; 
 
         if (tyyppi == 1) {
