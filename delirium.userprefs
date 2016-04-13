@@ -1,0 +1,29 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\2D Rouge\Assets\Scripts\Enemy.cs">
+    <Files>
+      <File FileName="Assets\skribu\Player.cs" Line="27" Column="1" NotebookId="2" />
+      <File FileName="Assets\skribu\BoardManager.cs" Line="77" Column="6" NotebookId="2" />
+      <File FileName="Assets\skribu\GameManager.cs" Line="1" Column="1" NotebookId="2" />
+      <File FileName="Assets\skribu\GameController.cs" Line="22" Column="47" NotebookId="2" />
+    </Files>
+    <FloatingWindows>
+      <FloatingWindow WindowId="1" X="921" Y="0" Width="981" Height="480">
+        <Files>
+          <File FileName="..\2D Rouge\Assets\Scripts\MovingObject.cs" Line="53" Column="9" />
+          <File FileName="..\2D Rouge\Assets\Scripts\Player.cs" Line="60" Column="20" />
+          <File FileName="..\2D Rouge\Assets\Scripts\Enemy.cs" Line="1" Column="1" />
+        </Files>
+      </FloatingWindow>
+      <FloatingWindow WindowId="2" X="1262" Y="0" Width="640" Height="975">
+        <Files>
+          <File FileName="..\Lab13\Assets\Skribut\GameManager.cs" Line="1" Column="1" NotebookId="1" />
+        </Files>
+      </FloatingWindow>
+    </FloatingWindows>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
