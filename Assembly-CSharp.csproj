@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\skribu\BoardManager.cs" />
-     <Compile Include="Assets\skribu\Character.cs" />
      <Compile Include="Assets\skribu\Enemy.cs" />
      <Compile Include="Assets\skribu\GameController.cs" />
      <Compile Include="Assets\skribu\GameManager.cs" />
