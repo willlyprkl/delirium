@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour {
             }
             Debug.Log(enemy.GetHealth());
             player.transform.position = startpos;
-            Logger.Lisaa("You hit " + enemy.nimi + " for " + player.attack);
+            Logger.Lisaa("You hit " + enemy.nimi + " for " + player.attack + "dmg");
         } else if (hits.transform.tag == "juoma") {
             hits.transform.gameObject.SetActive(false);
             player.LisaaDmg(10);
