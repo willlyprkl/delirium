@@ -8,7 +8,7 @@ public class Enemy : GameController {
     private string nimi;
     private GameManager gm;
     private Transform target;
-    private int damage;
+    public int damage;
     private int hp;
 
     void Start () {
@@ -53,24 +53,34 @@ public class Enemy : GameController {
         float dx = target.position.x - this.transform.position.x;
         float dy = target.position.y - this.transform.position.y;
 
-        if (Mathf.Abs(dx) > Mathf.Abs(dy)) {
-            if (dx < 0)
-                x = -1;
-            else
-                x = 1;
-            suunt = "ho";
+        if ((Mathf.Abs(dx) < 20) && (Mathf.Abs(dy) < 20)) {
+            if (Mathf.Abs(dx) > Mathf.Abs(dy)) {
+                if (dx < 0)
+                    x = -1;
+                else
+                    x = 1;
+                suunt = "ho";
 
-        } else {
-            if (dy < 0)
-                x = -1;
-            else
-                x = 1;
-            suunt = "ve";
+            } else {
+                if (dy < 0)
+                    x = -1;
+                else
+                    x = 1;
+                suunt = "ve";
+            }
+
+
+            LiikuEn(x, suunt, this);
+
+            Debug.Log(""+ nimi + ": " + x + "" + suunt);
         }
+    }
 
+    public void VahennaHp(int a) {
+        hp -= a;
+    }
 
-        LiikuEn(x, suunt, this);
-
-        //Debug.Log(""+ nimi + ": " + x + "" + suunt);
+    public int GetHealth() {
+        return this.hp;
     }
 }

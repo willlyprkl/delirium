@@ -100,4 +100,9 @@ public class BoardManager : MonoBehaviour {
         Instantiate(exit, new Vector3(sarakkeet - 1, rivit - 1, 0f), Quaternion.identity);
         //Instantiate(player, new Vector3(sarakkeet - 8, rivit - 8, 0f), Quaternion.identity);
     }
+
+    public void LisaaVihollisia() {
+        Layouttaa(vihollisTilet, vihollisCount.minimum, vihollisCount.maximum);
+
+    }
 }

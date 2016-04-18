@@ -4,21 +4,34 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
-    private BoxCollider2D boxc;
     private GameManager gm;
 
 	void Start () {
-         boxc = GetComponent<BoxCollider2D>();
 	}
 	
     protected void LiikuEn(int a, string b, Enemy enemy) {
+        RaycastHit2D hits;
+        Vector2 startpos = enemy.transform.position;
+        Vector2 endpos = enemy.transform.position;;
+        Player player;
+
         if (b == "ho") {
-            Vector2 startpos = enemy.transform.position;
-            Vector2 endpos = startpos + new Vector2(a, 0);
-            enemy.transform.position = endpos;
+            endpos = startpos + new Vector2(a, 0);
         } else {
-            Vector2 startpos = enemy.transform.position;
-            Vector2 endpos = startpos + new Vector2(0, a);
+            endpos = startpos + new Vector2(0, a);
+        }
+
+        hits = Physics2D.Linecast(startpos, endpos);
+
+        if (hits.transform == null) {
+            enemy.transform.position = endpos;
+
+        } else if (hits.transform.tag == "Player") {
+            enemy.transform.position = startpos;
+            Debug.Log("player");
+            player = hits.transform.GetComponent<Player>();
+            player.VahennaHp(enemy.damage);
+        } else {
             enemy.transform.position = endpos;
         }
     }
@@ -27,7 +40,8 @@ public class GameController : MonoBehaviour {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         RaycastHit2D hits;
         Vector2 startpos = player.transform.position;
-        Vector2 endpos = player.transform.position;
+        Vector2 endpos;
+        Enemy enemy;
 
         if (b == "ho") {
             endpos = startpos + new Vector2(a, 0);
@@ -40,14 +54,22 @@ public class GameController : MonoBehaviour {
         if (hits.transform == null) {
             player.transform.position = endpos;
         } else if (hits.transform.tag == "enemy") {
-            hits.transform.gameObject.SetActive(false);
-            player.transform.position = endpos;
+            enemy = hits.transform.GetComponent<Enemy>();
+            enemy.VahennaHp(player.attack);
+            //Debug.Log(enemy.ToString());
+            if ((enemy.GetHealth()) <= 0) {
+                gm.viholliset.Remove(enemy);
+                Destroy(enemy.gameObject);
+            }
+            Debug.Log(enemy.GetHealth());
+            player.transform.position = startpos;
         } else if (hits.transform.tag == "juoma") {
             hits.transform.gameObject.SetActive(false);
+            player.LisaaDmg(10);
             player.transform.position = endpos;
         } else if (hits.transform.tag == "ruoka") {
             hits.transform.gameObject.SetActive(false);
-            player.health(10);
+            player.LisaaHp(10);
             player.transform.position = endpos;
         } else if (hits.transform.tag == "puut") {
             player.transform.position = endpos;

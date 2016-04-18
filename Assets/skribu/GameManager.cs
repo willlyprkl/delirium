@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
     public BoardManager kenttaScribu;
     public bool playerTurn = true;
 
-    private List<Enemy> viholliset;
+    public List<Enemy> viholliset;
 
 	// Use this for initialization
 	void Awake () {
@@ -35,8 +35,12 @@ public class GameManager : MonoBehaviour {
     void Liikutavihut(){
         playerTurn = false;
 
-        for (int i = 0; i < viholliset.Count; i++) {
-            viholliset[i].LiikuEnemy();
+        if (viholliset.Count >= 1){
+            for (int i = 0; i < viholliset.Count; i++){
+                viholliset[i].LiikuEnemy();
+            }
+        } else {
+            kenttaScribu.LisaaVihollisia();
         }
 
         playerTurn = true;
