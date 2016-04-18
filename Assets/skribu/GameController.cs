@@ -46,6 +46,7 @@ public class GameController : MonoBehaviour {
         Vector2 startpos = player.transform.position;
         Vector2 endpos;
         Enemy enemy;
+		Item item;
 
         if (b == "ho") {
             endpos = startpos + new Vector2(a, 0);
@@ -69,19 +70,26 @@ public class GameController : MonoBehaviour {
             player.transform.position = startpos;
             Logger.Lisaa("You hit " + enemy.nimi + " for " + player.attack + "dmg");
         } else if (hits.transform.tag == "juoma") {
+			item = hits.transform.GetComponent<Item> ();
             hits.transform.gameObject.SetActive(false);
-            player.LisaaDmg(10);
+			player.LisaaHp (item.GetHp ());
+			player.LisaaDmg(item.GetDamage());
             player.transform.position = endpos;
         } else if (hits.transform.tag == "ruoka") {
+			item = hits.transform.GetComponent<Item> ();
             hits.transform.gameObject.SetActive(false);
-            player.LisaaHp(10);
+			player.LisaaDmg (item.GetDamage());
+			player.LisaaHp (item.GetHp());
             player.transform.position = endpos;
         } else if (hits.transform.tag == "puut") {
             player.transform.position = endpos;
         } else if (hits.transform.tag == "tie") {
             player.transform.position = startpos;
         } else if (hits.transform.tag == "ase") {
-            player.LisaaDmg(10);
+			item = hits.transform.GetComponent<Item> ();
+			player.LisaaDmg(item.GetDamage());
+			hits.transform.gameObject.SetActive(false);
+			player.transform.position = endpos;
         }
 
         gm.playerTurn = false;

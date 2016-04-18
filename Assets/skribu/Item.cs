@@ -74,4 +74,11 @@ public class Item : MonoBehaviour {
 	}
 
 
+	public int GetDamage() {
+		return this.damage;
+	}
+	public int GetHp() {
+		return this.hp;
+	}
+
 }
