@@ -5,7 +5,7 @@ public class Enemy : GameController {
    
     public int tyyppi;
 
-    private string nimi;
+    public string nimi;
     private GameManager gm;
     private Transform target;
     public int damage;
@@ -72,7 +72,7 @@ public class Enemy : GameController {
 
             LiikuEn(x, suunt, this);
 
-            Debug.Log(""+ nimi + ": " + x + "" + suunt);
+            //Debug.Log(""+ nimi + ": " + x + "" + suunt);
         }
     }
 

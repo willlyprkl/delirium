@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
     private GameManager gm;
+    public Logger logger;
 
 	void Start () {
 	}
@@ -23,14 +24,17 @@ public class GameController : MonoBehaviour {
 
         hits = Physics2D.Linecast(startpos, endpos);
 
-        if (hits.transform == null) {
+        if (hits.transform == null){
             enemy.transform.position = endpos;
 
         } else if (hits.transform.tag == "Player") {
             enemy.transform.position = startpos;
-            Debug.Log("player");
             player = hits.transform.GetComponent<Player>();
             player.VahennaHp(enemy.damage);
+            //Debug.Log(enemy.nimi + " hit player for " + enemy.damage + "dmg");
+            Logger.Lisaa(enemy.nimi + " hit player for " + enemy.damage + "dmg");
+        } else if (hits.transform.tag == "Enemy") {
+            enemy.transform.position = startpos;
         } else {
             enemy.transform.position = endpos;
         }
@@ -63,6 +67,7 @@ public class GameController : MonoBehaviour {
             }
             Debug.Log(enemy.GetHealth());
             player.transform.position = startpos;
+            Logger.Lisaa("You hit " + enemy.nimi + " for " + player.attack);
         } else if (hits.transform.tag == "juoma") {
             hits.transform.gameObject.SetActive(false);
             player.LisaaDmg(10);
@@ -73,6 +78,10 @@ public class GameController : MonoBehaviour {
             player.transform.position = endpos;
         } else if (hits.transform.tag == "puut") {
             player.transform.position = endpos;
+        } else if (hits.transform.tag == "tie") {
+            player.transform.position = startpos;
+        } else if (hits.transform.tag == "ase") {
+            player.LisaaDmg(10);
         }
 
         gm.playerTurn = false;

@@ -49,6 +49,7 @@
      <Compile Include="Assets\skribu\Enemy.cs" />
      <Compile Include="Assets\skribu\GameController.cs" />
      <Compile Include="Assets\skribu\GameManager.cs" />
+     <Compile Include="Assets\skribu\Logger.cs" />
      <Compile Include="Assets\skribu\Player.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
