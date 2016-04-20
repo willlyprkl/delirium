@@ -80,6 +80,10 @@ public class BoardManager : MonoBehaviour {
         
     // Random-positioita
     Vector3 RandomPositio() {
+        if (gridPositiot.Count < 1){
+            Debug.Log("Lista tyhjä");
+            AlustaLista();
+        }
         int randind = Random.Range(0, gridPositiot.Count);
         Vector3 randompos = gridPositiot[randind];
         // Poistetaan listasta, jotta tavarat eivät syntyisi päällekkäin
