@@ -65,8 +65,17 @@ public class BoardManager : MonoBehaviour {
                 // Random maatile jokaiseen ruutuun
                 GameObject alustettava = maaTilet[Random.Range(0, maaTilet.Length)];
                 // Teistä reunat kartalle
-                if(x == -1 || x == sarakkeet || y == -1 || y == rivit)
-                    alustettava = tieTilet[Random.Range(0, tieTilet.Length)];
+                if (x == -1 && y >= 0 && y < sarakkeet) {
+                    alustettava = tieTilet[1];
+                } else if (x == rivit && y >= 0 && y < sarakkeet) {
+                    alustettava = tieTilet[2];
+                } else if (y == -1 && x >= 0 && x < rivit) {
+                    alustettava = tieTilet[4];
+                } else if (y == rivit && x >= 0 && x < rivit) {
+                    alustettava = tieTilet[3];
+                } else if (x == -1 || x == sarakkeet || y == -1 || y == rivit){
+                    alustettava = tieTilet[0];
+                }
 
                 // Instantiatetaan annettu tile
                 GameObject instanssi = Instantiate(alustettava, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;

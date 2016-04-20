@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
     // GameManager pelaajan vuoron päivittämiseen
     private GameManager gm;
-	public GameObject splat;
+	public GameObject[] splat;
 
 	void Start () {
 		
@@ -93,13 +93,14 @@ public class GameController : MonoBehaviour {
             // Jos vihollisen hp loppuu, vihollinen tuhotaan
             if ((enemy.GetHealth()) <= 0) {
                 gm.viholliset.Remove(enemy);
-				Instantiate (splat, enemy.transform.position, Quaternion.identity);
+                GameObject randsplat = splat[Random.Range(0, splat.Length)];
+				Instantiate (randsplat, enemy.transform.position, Quaternion.identity);
 				Destroy(enemy.gameObject);
 
             }
             //Debug.Log(enemy.GetHealth());
             player.transform.position = startpos;
-            Logger.Lisaa("You hit " + enemy.nimi + " for " + player.GetDamage() + "dmg, " + enemy.nimi + " " + enemy.GetHealth() + "/" + enemy.GetFullHealth());
+            Logger.Lisaa("You hit " + enemy.nimi + " for " + player.GetDamage() + "dmg, " + enemy.nimi + " " + enemy.GetHealth() + "/" + enemy.GetFullHealth() + "hp");
 
 
         // Jos ruudussa on itemi se käytetään ja lisätään hp ja damage itemin mukaan
