@@ -40,9 +40,9 @@ public class GameController : MonoBehaviour {
         } else if (hits.transform.tag == "Player") {
             enemy.transform.position = startpos;
             player = hits.transform.GetComponent<Player>();
-            player.VahennaHp(enemy.damage);
+            player.VahennaHp(enemy.GetDamage());
             //Debug.Log(enemy.nimi + " hit player for " + enemy.damage + "dmg");
-            Logger.Lisaa(enemy.nimi + " hit player for " + enemy.damage + "dmg");
+            Logger.Lisaa(enemy.nimi + " hit player for " + enemy.GetDamage() + "dmg");
         
         // Jos ruudussa on vihollinen, estetään liike
         } else if (hits.transform.tag == "Enemy") {
@@ -86,16 +86,16 @@ public class GameController : MonoBehaviour {
         // Jos ruudussa on vihollinen, tehdään viholliseen vahinkoa
         } else if (hits.transform.tag == "enemy") {
             enemy = hits.transform.GetComponent<Enemy>();
-            enemy.VahennaHp(player.attack);
+            enemy.VahennaHp(player.GetDamage());
             //Debug.Log(enemy.ToString());
             // Jos vihollisen hp loppuu, vihollinen tuhotaan
             if ((enemy.GetHealth()) <= 0) {
                 gm.viholliset.Remove(enemy);
                 Destroy(enemy.gameObject);
             }
-            Debug.Log(enemy.GetHealth());
+            //Debug.Log(enemy.GetHealth());
             player.transform.position = startpos;
-            Logger.Lisaa("You hit " + enemy.nimi + " for " + player.attack + "dmg");
+            Logger.Lisaa("You hit " + enemy.nimi + " for " + player.GetDamage() + "dmg, " + enemy.nimi + " " + enemy.GetHealth() + "/" + enemy.GetFullHealth());
 
 
         // Jos ruudussa on itemi se käytetään ja lisätään hp ja damage itemin mukaan

@@ -4,8 +4,8 @@ using System.Collections;
 
 public class Player : GameController {
     // Pelaajan ominaisuudet
-    public int hp;
-    public int attack;
+    private int hp;
+    private int attack;
 
     // UI:n tekstit ja näppäimet
     private Button wButton;
@@ -61,6 +61,14 @@ public class Player : GameController {
     // DMG-textin päivitys
     void DmgText() {
         dmgText.text = "DMG: " + attack;
+    }
+
+    public int GetHealth() {
+        return this.hp;
+    }
+
+    public int GetDamage() {
+        return this.attack;
     }
 
 }

@@ -112,7 +112,7 @@ public class BoardManager : MonoBehaviour {
         KenttaSetuppi();
         // Alustetaan vektorilista
         AlustaLista();
-        // Layoutataan kaikki mahdolliset itemit yms.
+        // Layoutataan kaikki mahdolliset itemit yms.(tilet, min, max)
         Layouttaa(juomaTilet, juomaCount.minimum, juomaCount.maximum);
         Layouttaa(ruokaTilet, ruokaCount.minimum, ruokaCount.maximum);
         Layouttaa(aseTilet, aseCount.minimum, aseCount.maximum);
