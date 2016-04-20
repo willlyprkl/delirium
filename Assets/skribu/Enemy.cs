@@ -55,6 +55,7 @@ public class Enemy : MonoBehaviour {
             nimi = "Hirvi";
             damage = 25;
             hp = 80;
+            fullHp = 80;
 		} else if (tyyppi == 6) {
 			// Käärme
 			nimi = "Käärme";

@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour {
             Logger.Lisaa(enemy.nimi + " hit player for " + enemy.GetDamage() + "dmg");
         
         // Jos ruudussa on vihollinen, estetään liike
-        } else if (hits.transform.tag == "Enemy") {
+        } else if (hits.transform.tag == "enemy") {
             enemy.transform.position = startpos;
         
         // Jos ruudussa on jotain muuta, esim. itemi, liikutaan siihen
