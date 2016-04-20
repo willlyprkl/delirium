@@ -5,6 +5,7 @@ public class Item : MonoBehaviour {
 
 
 	private string nimi;
+
 	private int hp;
 	private int damage;
 	private int juotuMaara;
@@ -81,4 +82,7 @@ public class Item : MonoBehaviour {
 		return this.hp;
 	}
 
+	public string GetItemname () {
+		return this.nimi;
+	}
 }

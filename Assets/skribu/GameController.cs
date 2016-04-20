@@ -69,27 +69,36 @@ public class GameController : MonoBehaviour {
             Debug.Log(enemy.GetHealth());
             player.transform.position = startpos;
             Logger.Lisaa("You hit " + enemy.nimi + " for " + player.attack + "dmg");
+
         } else if (hits.transform.tag == "juoma") {
 			item = hits.transform.GetComponent<Item> ();
             hits.transform.gameObject.SetActive(false);
 			player.LisaaHp (item.GetHp ());
 			player.LisaaDmg(item.GetDamage());
             player.transform.position = endpos;
+			Logger.Lisaa("You drank " + item.GetItemname () + ", gain " + item.GetHp ()+ "hp" + " and " + item.GetDamage () + "dmg");
+
+
         } else if (hits.transform.tag == "ruoka") {
 			item = hits.transform.GetComponent<Item> ();
             hits.transform.gameObject.SetActive(false);
 			player.LisaaDmg (item.GetDamage());
 			player.LisaaHp (item.GetHp());
             player.transform.position = endpos;
+			Logger.Lisaa("You ate " + item.GetItemname () + ", gain " + item.GetHp ()+ "hp" + " and " + item.GetDamage () + "dmg");
+
         } else if (hits.transform.tag == "puut") {
             player.transform.position = endpos;
+
         } else if (hits.transform.tag == "tie") {
             player.transform.position = startpos;
+
         } else if (hits.transform.tag == "ase") {
 			item = hits.transform.GetComponent<Item> ();
 			player.LisaaDmg(item.GetDamage());
 			hits.transform.gameObject.SetActive(false);
 			player.transform.position = endpos;
+			Logger.Lisaa("You found " + item.GetItemname () + ", gain " + item.GetDamage () + "dmg");
         }
 
         gm.playerTurn = false;
