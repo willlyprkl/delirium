@@ -48,7 +48,12 @@ public class Enemy : GameController {
             nimi = "Hirvi";
             damage = 25;
             hp = 80;
-        }
+		} else if (tyyppi == 6) {
+			// Käärme
+			nimi = "Käärme";
+			damage = 50;
+			hp = 25;
+		}
 
         // Lisätään luotu vihollinen listaan
         gm.LisaaVihuListaan(this);
