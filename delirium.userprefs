@@ -1,12 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\skribu\GameController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\skribu\Player.cs">
     <Files>
-      <File FileName="Assets\skribu\GameManager.cs" Line="19" Column="22" />
-      <File FileName="Assets\skribu\BoardManager.cs" Line="104" Column="1" />
-      <File FileName="Assets\skribu\Enemy.cs" Line="1" Column="1" NotebookId="1" />
-      <File FileName="Assets\skribu\GameController.cs" Line="17" Column="5" NotebookId="1" />
-      <File FileName="Assets\skribu\Player.cs" Line="33" Column="3" NotebookId="1" />
+      <File FileName="Assets\skribu\Item.cs" Line="1" Column="1" />
+      <File FileName="Assets\skribu\GameManager.cs" Line="57" Column="49" />
+      <File FileName="Assets\skribu\GameController.cs" Line="128" Column="33" />
+      <File FileName="Assets\skribu\Enemy.cs" Line="93" Column="21" />
+      <File FileName="Assets\skribu\BoardManager.cs" Line="82" Column="30" />
+      <File FileName="Assets\skribu\Logger.cs" Line="6" Column="19" />
+      <File FileName="Assets\skribu\Player.cs" Line="61" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

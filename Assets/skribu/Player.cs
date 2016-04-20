@@ -3,10 +3,11 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class Player : GameController {
-
+    // Pelaajan ominaisuudet
     public int hp;
     public int attack;
 
+    // UI:n tekstit ja näppäimet
     private Button wButton;
     private Button eButton;
     private Button sButton;
@@ -16,6 +17,7 @@ public class Player : GameController {
 
 
     void Start(){
+        // Alustetaan statsit, haetaan napit ja tekstit
         hp = 100;
         attack = 50;
         wButton = (Button)GameObject.Find("wButton").GetComponent<Button>();
@@ -25,6 +27,7 @@ public class Player : GameController {
         hpText = (Text)GameObject.Find("hpText").GetComponent<Text>();
         dmgText = (Text)GameObject.Find("dmgText").GetComponent<Text>();
 
+        // Asetetaan liikkuminen
         wButton.onClick.AddListener(() => (Liiku(-1, "ho", this)));
         eButton.onClick.AddListener(() => (Liiku(1, "ho", this))); 
         sButton.onClick.AddListener(() => (Liiku(-1, "ve", this)));
@@ -32,25 +35,30 @@ public class Player : GameController {
 
     }
 
+    // HP:n lisäys
     public void LisaaHp(int a) {
         hp += a;
         HpText();
     }
 
+    // HP:n vähennys
     public void VahennaHp(int a){
         hp -= a;
         HpText();
     }
 
+    // Damagen kasvatus (itemit)
     public void LisaaDmg(int a) {
         attack += a;
         DmgText();
     }
 
+    // HP-textin päivitys
     void HpText() {
         hpText.text = "HP: " + hp;
     }
 
+    // DMG-textin päivitys
     void DmgText() {
         dmgText.text = "DMG: " + attack;
     }
