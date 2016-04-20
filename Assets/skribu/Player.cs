@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Player : GameController {
+public class Player : MonoBehaviour {
     // Pelaajan ominaisuudet
     private int hp;
     private int attack;
@@ -15,11 +15,16 @@ public class Player : GameController {
     private Text hpText;
     private Text dmgText;
 
+	private GameController gc;
+
 
     void Start(){
         // Alustetaan statsit, haetaan napit ja tekstit
         hp = 100;
         attack = 50;
+
+		gc = GameObject.Find ("GameController").GetComponent<GameController> ();
+
         wButton = (Button)GameObject.Find("wButton").GetComponent<Button>();
         eButton = (Button)GameObject.Find("eButton").GetComponent<Button>();
         sButton = (Button)GameObject.Find("sButton").GetComponent<Button>();
@@ -28,10 +33,10 @@ public class Player : GameController {
         dmgText = (Text)GameObject.Find("dmgText").GetComponent<Text>();
 
         // Asetetaan liikkuminen
-        wButton.onClick.AddListener(() => (Liiku(-1, "ho", this)));
-        eButton.onClick.AddListener(() => (Liiku(1, "ho", this))); 
-        sButton.onClick.AddListener(() => (Liiku(-1, "ve", this)));
-        nButton.onClick.AddListener(() => (Liiku(1, "ve", this)));
+		wButton.onClick.AddListener(() => (gc.Liiku(-1, "ho", this)));
+		eButton.onClick.AddListener(() => (gc.Liiku(1, "ho", this))); 
+		sButton.onClick.AddListener(() => (gc.Liiku(-1, "ve", this)));
+		nButton.onClick.AddListener(() => (gc.Liiku(1, "ve", this)));
 
     }
 

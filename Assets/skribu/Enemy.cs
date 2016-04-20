@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : GameController {
+public class Enemy : MonoBehaviour {
 
     // Vihollistyyppi, eri vihollisia varten
     public int tyyppi;
     // Nimi viholliselle
     public string nimi;
+	private GameController gc;
     // GM, jotta viholliset voidaan lisätä listaan
     private GameManager gm;
     // Targetti hahmolle
@@ -18,6 +19,7 @@ public class Enemy : GameController {
     private int fullHp;
 
     void Start () {
+		gc = GameObject.Find ("GameController").GetComponent<GameController> ();
         // Haetaan gm-objekti
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         // Haetaan kohde, eli pelaaja
@@ -95,7 +97,7 @@ public class Enemy : GameController {
             }
 
             // Liikutetaan vihollista
-            LiikuEn(x, suunt, this);
+            gc.LiikuEn(x, suunt, this);
 
             //Debug.Log(""+ nimi + ": " + x + "" + suunt);
         }

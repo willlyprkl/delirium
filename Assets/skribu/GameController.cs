@@ -5,12 +5,14 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
     // GameManager pelaajan vuoron päivittämiseen
     private GameManager gm;
+	public GameObject splat;
 
 	void Start () {
+		
 	}
 	
     // Vihollisen liikkuminen(suunta, hor/ver, vihollinen)
-    protected void LiikuEn(int a, string b, Enemy enemy) {
+    public void LiikuEn(int a, string b, Enemy enemy) {
         // Raycast, ruutujen tarkistamiseen
         RaycastHit2D hits;
 
@@ -56,7 +58,7 @@ public class GameController : MonoBehaviour {
 
 
     // Pelaajan liikkuminen
-    protected void Liiku(int a, string b, Player player) {
+	public void Liiku(int a, string b, Player player) {
         // Haetaan gm-objekti
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         // Raycast, ruutujen tarkistamiseen
@@ -91,7 +93,9 @@ public class GameController : MonoBehaviour {
             // Jos vihollisen hp loppuu, vihollinen tuhotaan
             if ((enemy.GetHealth()) <= 0) {
                 gm.viholliset.Remove(enemy);
-                Destroy(enemy.gameObject);
+				Instantiate (splat, enemy.transform.position, Quaternion.identity);
+				Destroy(enemy.gameObject);
+
             }
             //Debug.Log(enemy.GetHealth());
             player.transform.position = startpos;
