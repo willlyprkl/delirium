@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour {
     public bool playerTurn = true;
     // Vihollislista
     public List<Enemy> viholliset;
+    private bool liiket;
+    private float vuoroAika = 0.1f;
 
     // Pelin käynnistys
 	void Awake () {
@@ -28,10 +30,10 @@ public class GameManager : MonoBehaviour {
 
     // Tarkistetaan onko pelaajan vuoro ja liikutetaan viholliset, jos ei ole.
     void Update () {
-        if (playerTurn)
+        if (playerTurn || liiket)
             return;
 
-        Liikutavihut();
+        StartCoroutine(Liikutavihut());
 	}
 
     // Vihollisen lisääminen listaan
@@ -40,14 +42,18 @@ public class GameManager : MonoBehaviour {
     }
 
     // Vihollisten liikuttaminen
-    void Liikutavihut(){
+    IEnumerator Liikutavihut(){
+
         // Varmistetaan, että ei ole pelaajan vuoro
         playerTurn = false;
+        liiket = true;
+        yield return new WaitForSeconds(vuoroAika);
 
         // Jos vihollisia on yksi tai enemmän ajetaan lista läpi
         if (viholliset.Count >= 1){
             for (int i = 0; i < viholliset.Count; i++){
                 viholliset[i].LiikuEnemy();
+                yield return new WaitForSeconds(vuoroAika);
             }
         // Jos ei, lisätään vihollisia.
         } else {
@@ -56,5 +62,6 @@ public class GameManager : MonoBehaviour {
 
         // Liikkumisen jälkeen on pelaajan vuoro
         playerTurn = true;
+        liiket = false;
     }
 }

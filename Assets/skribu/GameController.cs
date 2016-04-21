@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour {
     private GameManager gm;
 	public GameObject[] splat;
 
+
 	void Start () {
 		
 	}
@@ -23,6 +24,8 @@ public class GameController : MonoBehaviour {
         // Pelaaja
         Player player;
 
+        bool move = false;
+
         // Tarkistaa liikeen horisontaalisuuden/vertikaalisuuden
         if (b == "ho") {
             endpos = startpos + new Vector2(a, 0);
@@ -35,12 +38,12 @@ public class GameController : MonoBehaviour {
 
         // Jos ruutu on tyhjä, ruutuun liikutaan
         if (hits.transform == null){
-            enemy.transform.position = endpos;
+            move = true;
         
         // Jos ruudussa on pelaaja, haetaan pelaaja ja vähennetään pelaajan
         // hp:ta vihollisen damagen mukaan.
         } else if (hits.transform.tag == "Player") {
-            enemy.transform.position = startpos;
+            move = false;
             player = hits.transform.GetComponent<Player>();
             player.VahennaHp(enemy.GetDamage());
             //Debug.Log(enemy.nimi + " hit player for " + enemy.damage + "dmg");
@@ -48,12 +51,15 @@ public class GameController : MonoBehaviour {
         
         // Jos ruudussa on vihollinen, estetään liike
         } else if (hits.transform.tag == "enemy") {
-            enemy.transform.position = startpos;
+            move = false;
         
         // Jos ruudussa on jotain muuta, esim. itemi, liikutaan siihen
         } else {
-            enemy.transform.position = endpos;
+            move = true;
         }
+
+        if (move)
+            StartCoroutine(SmoothEn(endpos, enemy));
     }
 
 
@@ -71,6 +77,8 @@ public class GameController : MonoBehaviour {
         Enemy enemy;
         // Itemi
 		Item item;
+        // Liikkumisen tarkistusta varten
+        bool move = false;
 
         // Tarkistaa liikeen horisontaalisuuden/vertikaalisuuden
         if (b == "ho") {
@@ -84,7 +92,9 @@ public class GameController : MonoBehaviour {
 
         // Jos ruutu on tyhjä, liikutaan
         if (hits.transform == null) {
-            player.transform.position = endpos;
+            //player.transform.position = endpos;
+            move = true;
+
         // Jos ruudussa on vihollinen, tehdään viholliseen vahinkoa
         } else if (hits.transform.tag == "enemy") {
             enemy = hits.transform.GetComponent<Enemy>();
@@ -99,7 +109,7 @@ public class GameController : MonoBehaviour {
 
             }
             //Debug.Log(enemy.GetHealth());
-            player.transform.position = startpos;
+            move = false;
             Logger.Lisaa("You hit " + enemy.nimi + " for " + player.GetDamage() + "dmg, " + enemy.nimi + " " + enemy.GetHealth() + "/" + enemy.GetFullHealth() + "hp");
 
 
@@ -110,7 +120,7 @@ public class GameController : MonoBehaviour {
             hits.transform.gameObject.SetActive(false);
 			player.LisaaHp (item.GetHp ());
 			player.LisaaDmg(item.GetDamage());
-            player.transform.position = endpos;
+            move = true;
 			Logger.Lisaa("You drank " + item.GetItemname () + ", gain " + item.GetHp ()+ "hp" + " and " + item.GetDamage () + "dmg");
 
 
@@ -119,28 +129,58 @@ public class GameController : MonoBehaviour {
             hits.transform.gameObject.SetActive(false);
 			player.LisaaDmg (item.GetDamage());
 			player.LisaaHp (item.GetHp());
-            player.transform.position = endpos;
+            move = true;
 			Logger.Lisaa("You ate " + item.GetItemname () + ", gain " + item.GetHp ()+ "hp" + " and " + item.GetDamage () + "dmg");
 
 		} else if (hits.transform.tag == "ase") {
 			item = hits.transform.GetComponent<Item> ();
 			player.LisaaDmg(item.GetDamage());
 			hits.transform.gameObject.SetActive(false);
-			player.transform.position = endpos;
+            move = true;
 			Logger.Lisaa("You found " + item.GetItemname () + ", gain " + item.GetDamage () + "dmg");
 
 			// Puista ei välitetä
 		} else if (hits.transform.tag == "puut") {
-            player.transform.position = endpos;
-        
+            move = true;
         // Tiet toimii pelialueen reunana, ei pääse läpi
         } else if (hits.transform.tag == "tie") {
-            player.transform.position = startpos;
+            move = false;
 
         } 
 
+        if (move) 
+            StartCoroutine (Smooth(endpos, player));
+        
         // Pelaajan vuoro loppuu
         gm.playerTurn = false;
+    }
+
+    IEnumerator Smooth (Vector2 endpos, Player player) {
+        Vector3 asd = endpos;
+        Rigidbody2D rb2D = player.gameObject.GetComponent<Rigidbody2D>();
+        float sqrRemainingDistance = (player.transform.position - asd).sqrMagnitude;
+        float speed = Time.deltaTime * 10;
+
+        while (sqrRemainingDistance > float.Epsilon) {
+            Vector3 newPos = Vector3.MoveTowards(rb2D.position, asd, speed);
+            rb2D.MovePosition(newPos);
+            sqrRemainingDistance = (player.transform.position - asd).sqrMagnitude;
+            yield return null;
+        }
+    }
+
+    IEnumerator SmoothEn (Vector2 endpos, Enemy enemy) {
+        Vector3 asd = endpos;
+        Rigidbody2D rb2D = enemy.gameObject.GetComponent<Rigidbody2D>();
+        float sqrRemainingDistance = (enemy.transform.position - asd).sqrMagnitude;
+        float speed = Time.deltaTime * 10;
+
+        while (sqrRemainingDistance > float.Epsilon) {
+            Vector3 newPos = Vector3.MoveTowards(rb2D.position, asd, speed);
+            rb2D.MovePosition(newPos);
+            sqrRemainingDistance = (enemy.transform.position - asd).sqrMagnitude;
+            yield return null;
+        }
     }
         
 }
