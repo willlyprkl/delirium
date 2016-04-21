@@ -63,7 +63,12 @@ public class Item : MonoBehaviour {
 			nimi = "Putki";
 			damage = 15;
 
-		}
+        } else if (tyyppi == 10) {
+            //10 = munat
+            nimi = "Munat";
+            hp = 15;
+            damage = 5;
+        }
 
 
 
