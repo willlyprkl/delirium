@@ -14,7 +14,7 @@ public class Player : MonoBehaviour {
     private Button nButton;
     private Text hpText;
     private Text dmgText;
-
+    public Animator animator;
 	private GameController gc;
 
 
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour {
         // Alustetaan statsit, haetaan napit ja tekstit
         hp = 100;
         attack = 50;
-
+        animator = GetComponent<Animator>();
 		gc = GameObject.Find ("GameController").GetComponent<GameController> ();
 
         wButton = (Button)GameObject.Find("wButton").GetComponent<Button>();

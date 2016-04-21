@@ -35,7 +35,6 @@ public class GameController : MonoBehaviour {
 
         // Linecast ruutun johon liikutaan
         hits = Physics2D.Linecast(startpos, endpos);
-
         // Jos ruutu on tyhjä, ruutuun liikutaan
         if (hits.transform == null){
             move = true;
@@ -92,12 +91,12 @@ public class GameController : MonoBehaviour {
 
         // Jos ruutu on tyhjä, liikutaan
         if (hits.transform == null) {
-            //player.transform.position = endpos;
             move = true;
 
         // Jos ruudussa on vihollinen, tehdään viholliseen vahinkoa
         } else if (hits.transform.tag == "enemy") {
             enemy = hits.transform.GetComponent<Enemy>();
+            player.animator.SetTrigger("joukoLyonti");
             enemy.VahennaHp(player.GetDamage());
             //Debug.Log(enemy.ToString());
             // Jos vihollisen hp loppuu, vihollinen tuhotaan

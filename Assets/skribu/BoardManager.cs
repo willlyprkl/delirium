@@ -130,7 +130,7 @@ public class BoardManager : MonoBehaviour {
 
         // Exitti kartan yläkulmaan
         Instantiate(exit, new Vector3(sarakkeet - 1, rivit - 1, 0f), Quaternion.identity);
-        //Instantiate(player, new Vector3(sarakkeet - 8, rivit - 8, 0f), Quaternion.identity);
+        //Instantiate(player, new Vector3(Random.Range(0, sarakkeet), Random.Range(0, rivit), 0f), Quaternion.identity);
     }
 
     // Vihollisten respawnaus

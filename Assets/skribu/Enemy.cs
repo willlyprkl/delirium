@@ -67,16 +67,16 @@ public class Enemy : MonoBehaviour {
         // Lisätään luotu vihollinen listaan
         gm.LisaaVihuListaan(this);
 	}
-
+        
     // Vihollisen liikuttaminen
     public void LiikuEnemy(){
         // Alustetaan liikkuminen
         int x = 0;
         string suunt;
-
         // Vihollisen ja pelaajan välinen positioero
         float dx = target.position.x - this.transform.position.x;
         float dy = target.position.y - this.transform.position.y;
+
 
         // Jos deltat on yli 20, vihollinen ei "aggroa"
         if ((Mathf.Abs(dx) < 20) && (Mathf.Abs(dy) < 20)) {
@@ -99,7 +99,7 @@ public class Enemy : MonoBehaviour {
 
             // Liikutetaan vihollista
             gc.LiikuEn(x, suunt, this);
-
+            Debug.Log(target.transform.position);
             //Debug.Log(""+ nimi + ": " + x + "" + suunt);
         }
     }
