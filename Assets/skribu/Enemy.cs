@@ -112,16 +112,19 @@ public class Enemy : MonoBehaviour {
         hp -= a;
     }
 
+    // Palauttaa enemyn HP:t
     public int GetHealth() {
         if (this.hp < 0)
             return 0;
         return this.hp;
     }
 
+    // Palauttaa täydet hp:t
     public int GetFullHealth() {
         return this.fullHp;
     }
 
+    // Palauttaa damagen
     public int GetDamage() {
         return this.damage;
     }

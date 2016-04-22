@@ -14,9 +14,11 @@ public class Player : MonoBehaviour {
     private Button nButton;
     private Text hpText;
     private Text dmgText;
+    private Text tapotText;
     public Animator animator;
 	private GameController gc;
-	private int juotuMaara;
+	private int juotuMaara = 0;
+    private int tapot = 0;
     public bool playerMoving = false;
 
 
@@ -33,6 +35,7 @@ public class Player : MonoBehaviour {
         nButton = (Button)GameObject.Find("nButton").GetComponent<Button>();
         hpText = (Text)GameObject.Find("hpText").GetComponent<Text>();
         dmgText = (Text)GameObject.Find("dmgText").GetComponent<Text>();
+        tapotText = (Text)GameObject.Find("tapotText").GetComponent<Text>();
 
         // Asetetaan liikkuminen
 		wButton.onClick.AddListener(() => (gc.Liiku(-1, "ho", this)));
@@ -78,6 +81,7 @@ public class Player : MonoBehaviour {
         return this.attack;
     }
 
+    // Juotujen juomien laskuri, achievementit
 	public void Juotu () {
 		juotuMaara++;
 		if (juotuMaara == 5) {
@@ -91,4 +95,9 @@ public class Player : MonoBehaviour {
 			Logger.Lisaa ("+++++ DRUNKENMASTER SURVIVOR ACHIEVEMENT: UNLEASHED INNER BEAST +++++");
 		}
 	}
+
+    public void Tappo() {
+        tapot++;
+        tapotText.text = "Kills: " + tapot;
+    }
 }

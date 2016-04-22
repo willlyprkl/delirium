@@ -47,7 +47,8 @@ public class GameController : MonoBehaviour {
             player.VahennaHp(enemy.GetDamage());
             //Debug.Log(enemy.nimi + " hit player for " + enemy.damage + "dmg");
             Logger.Lisaa(enemy.nimi + " hit player for " + enemy.GetDamage() + "dmg");
-        
+            enemy.animator.SetTrigger("enemyLyonti");
+
         // Jos ruudussa on vihollinen, estetään liike
         } else if (hits.transform.tag == "enemy") {
             move = false;
@@ -108,9 +109,12 @@ public class GameController : MonoBehaviour {
             // Jos vihollisen hp loppuu, vihollinen tuhotaan
             if ((enemy.GetHealth()) <= 0) {
                 gm.viholliset.Remove(enemy);
+                // Kuollut vihollinen = veriläikkä
                 GameObject randsplat = splat[Random.Range(0, splat.Length)];
 				Instantiate (randsplat, enemy.transform.position, Quaternion.identity);
 				Destroy(enemy.gameObject);
+                // Tappo kill-counteriin
+                player.Tappo();
 
             }
             //Debug.Log(enemy.GetHealth());
@@ -127,6 +131,7 @@ public class GameController : MonoBehaviour {
 			player.LisaaDmg(item.GetDamage());
             move = true;
 			Logger.Lisaa("You drank " + item.GetItemname () + ", gain " + item.GetHp ()+ "hp" + " and " + item.GetDamage () + "dmg");
+            // Lisätään juotujen juomien määrää
 			player.Juotu ();
 
 
@@ -162,14 +167,23 @@ public class GameController : MonoBehaviour {
         gm.playerTurn = false;
     }
 
+    //Pelaajan ja vihollisen smoothi liikuttaminen 
+
     IEnumerator Smooth (Vector2 endpos, Player player) {
+        // Pyöristetään loppusijainti, jos ruudukosta on "eksytty"
         endpos.x = Mathf.Round(endpos.x);
         endpos.y = Mathf.Round(endpos.y);
+
+        // Vector3 koska syyt
         Vector3 asd = endpos;
+        // Haetaan objektin rigidbody
         Rigidbody2D rb2D = player.gameObject.GetComponent<Rigidbody2D>();
+        // Liikkumiskohteen ja position välinen neliö
         float sqrRemainingDistance = (player.transform.position - asd).sqrMagnitude;
+        // Liikkumisaika
         float speed = Time.deltaTime * 10;
 
+        // Liikutetaan kunnes ollaan oikeassa paikassa
         while (sqrRemainingDistance > float.Epsilon) {
             Vector3 newPos = Vector3.MoveTowards(rb2D.position, asd, speed);
             rb2D.MovePosition(newPos);
