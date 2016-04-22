@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour {
     private int hp;
     private int fullHp;
 
+    public Animator animator;
+
     void Start () {
 		gc = GameObject.Find ("GameController").GetComponent<GameController> ();
         // Haetaan gm-objekti
@@ -25,6 +27,7 @@ public class Enemy : MonoBehaviour {
         // Haetaan kohde, eli pelaaja
         target = GameObject.FindGameObjectWithTag("Player").transform; 
 
+        animator = GetComponent<Animator>();
         // Eri vihollistyypit, tyyppi asetettu prefabissa
         if (tyyppi == 1) {
             // Karhu
@@ -99,7 +102,7 @@ public class Enemy : MonoBehaviour {
 
             // Liikutetaan vihollista
             gc.LiikuEn(x, suunt, this);
-            Debug.Log(target.transform.position);
+            //Debug.Log(target.transform.position);
             //Debug.Log(""+ nimi + ": " + x + "" + suunt);
         }
     }
