@@ -16,7 +16,11 @@ public class Player : MonoBehaviour {
     private Text dmgText;
     public Animator animator;
 	private GameController gc;
+<<<<<<< HEAD
 	private int juotuMaara;
+=======
+    public bool playerMoving = false;
+>>>>>>> 1b4ad055d6540ad52ced3d752b649bcaee24e8b4
 
 
     void Start(){
