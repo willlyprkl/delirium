@@ -20,19 +20,19 @@ public class Item : MonoBehaviour {
 		// Ruoat
 		if (tyyppi == 1) {
 			//1 = kalja
-			nimi = "Kalja";
+			nimi = "Kaljan";
 			hp = 10;
 			damage = 10;
 			juotuMaara += 1;
 		} else if (tyyppi == 2) {
 			//2 = viina
-			nimi = "Viina";
+			nimi = "Viinaa";
 			hp = 25;
 			damage = 15;
 			juotuMaara += 1;
 		} else if (tyyppi == 3) {
 			//3 = marjat
-			nimi = "Marjat";
+			nimi = "Marjoja";
 			hp = 15;
 		} else if (tyyppi == 4) {
 			//4 = tatit
@@ -68,7 +68,11 @@ public class Item : MonoBehaviour {
             nimi = "Munat";
             hp = 15;
             damage = 5;
-        }
+		} else if (tyyppi == 11) {
+			//10 = munat
+			nimi = "Marjoja";
+			hp = 15;
+		}
 
 
 
