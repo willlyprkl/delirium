@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
     private Text dmgText;
     public Animator animator;
 	private GameController gc;
+	private int juotuMaara;
 
 
     void Start(){
@@ -76,4 +77,17 @@ public class Player : MonoBehaviour {
         return this.attack;
     }
 
+	public void Juotu () {
+		juotuMaara++;
+		if (juotuMaara == 5) {
+			LisaaHp (50);
+			LisaaDmg (10);
+			Logger.Lisaa ("+++++ DRUNKENMASTER SURVIVOR ACHIEVEMENT: STAGE POWER FISTS +++++");
+		}
+		if (juotuMaara == 10) {
+			LisaaHp (50);
+			LisaaDmg (10);
+			Logger.Lisaa ("+++++ DRUNKENMASTER SURVIVOR ACHIEVEMENT: UNLEASHED INNER BEAST +++++");
+		}
+	}
 }

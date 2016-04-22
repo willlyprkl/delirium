@@ -44,7 +44,6 @@ public class GameController : MonoBehaviour {
         } else if (hits.transform.tag == "Player") {
             move = false;
             player = hits.transform.GetComponent<Player>();
-            enemy.animator.SetTrigger("enemyLyonti");
             player.VahennaHp(enemy.GetDamage());
             //Debug.Log(enemy.nimi + " hit player for " + enemy.damage + "dmg");
             Logger.Lisaa(enemy.nimi + " hit player for " + enemy.GetDamage() + "dmg");
@@ -122,6 +121,7 @@ public class GameController : MonoBehaviour {
 			player.LisaaDmg(item.GetDamage());
             move = true;
 			Logger.Lisaa("You drank " + item.GetItemname () + ", gain " + item.GetHp ()+ "hp" + " and " + item.GetDamage () + "dmg");
+			player.Juotu ();
 
 
         } else if (hits.transform.tag == "ruoka") {
