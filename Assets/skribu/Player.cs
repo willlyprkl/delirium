@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
     private Text dmgText;
     public Animator animator;
 	private GameController gc;
+    public bool playerMoving = false;
 
 
     void Start(){

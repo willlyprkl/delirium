@@ -65,8 +65,13 @@ public class GameController : MonoBehaviour {
 
     // Pelaajan liikkuminen
 	public void Liiku(int a, string b, Player player) {
-        // Haetaan gm-objekti
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        if (gm.enemyMoving || player.playerMoving)
+            return;
+
+        // Haetaan gm-objekti
+        player.playerMoving = true;
         // Raycast, ruutujen tarkistamiseen
         RaycastHit2D hits;
         // Lähtöruutu
@@ -79,6 +84,7 @@ public class GameController : MonoBehaviour {
 		Item item;
         // Liikkumisen tarkistusta varten
         bool move = false;
+
 
         // Tarkistaa liikeen horisontaalisuuden/vertikaalisuuden
         if (b == "ho") {
@@ -150,12 +156,15 @@ public class GameController : MonoBehaviour {
 
         if (move) 
             StartCoroutine (Smooth(endpos, player));
-        
+
         // Pelaajan vuoro loppuu
+        player.playerMoving = false;
         gm.playerTurn = false;
     }
 
     IEnumerator Smooth (Vector2 endpos, Player player) {
+        endpos.x = Mathf.Round(endpos.x);
+        endpos.y = Mathf.Round(endpos.y);
         Vector3 asd = endpos;
         Rigidbody2D rb2D = player.gameObject.GetComponent<Rigidbody2D>();
         float sqrRemainingDistance = (player.transform.position - asd).sqrMagnitude;
@@ -170,6 +179,8 @@ public class GameController : MonoBehaviour {
     }
 
     IEnumerator SmoothEn (Vector2 endpos, Enemy enemy) {
+        endpos.x = Mathf.Round(endpos.x);
+        endpos.y = Mathf.Round(endpos.y);
         Vector3 asd = endpos;
         Rigidbody2D rb2D = enemy.gameObject.GetComponent<Rigidbody2D>();
         float sqrRemainingDistance = (enemy.transform.position - asd).sqrMagnitude;
