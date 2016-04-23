@@ -7,9 +7,18 @@ public class GameController : MonoBehaviour {
     private GameManager gm;
 	public GameObject[] splat;
 
+    private int keratty = 0;
+
+    private Image joukonHousutImg;
+    private Image joukonPaitaImg;
+    private Image joukonKengatImg;
+    private Image joukonHattuImg;
 
 	void Start () {
-		
+        joukonHattuImg = GameObject.Find("joukonhattuImg").GetComponent<Image>();
+        joukonHousutImg = GameObject.Find("joukonhousutImg").GetComponent<Image>();
+        joukonKengatImg = GameObject.Find("joukonkengatImg").GetComponent<Image>();
+        joukonPaitaImg = GameObject.Find("joukonpaitaImg").GetComponent<Image>();
 	}
 	
     // Vihollisen liikkuminen(suunta, hor/ver, vihollinen)
@@ -46,7 +55,7 @@ public class GameController : MonoBehaviour {
             player = hits.transform.GetComponent<Player>();
             player.VahennaHp(enemy.GetDamage());
             //Debug.Log(enemy.nimi + " hit player for " + enemy.damage + "dmg");
-            Logger.Lisaa(enemy.nimi + " hit player for " + enemy.GetDamage() + "dmg");
+            Logger.Lisaa(enemy.GetNimi() + " hit player for " + enemy.GetDamage() + "dmg");
             enemy.animator.SetTrigger("enemyLyonti");
 
         // Jos ruudussa on vihollinen, estetään liike
@@ -119,7 +128,7 @@ public class GameController : MonoBehaviour {
             }
             //Debug.Log(enemy.GetHealth());
             move = false;
-            Logger.Lisaa("You hit " + enemy.nimi + " for " + player.GetDamage() + "dmg, " + enemy.nimi + " " + enemy.GetHealth() + "/" + enemy.GetFullHealth() + "hp");
+            Logger.Lisaa("You hit " + enemy.GetNimi() + " for " + player.GetDamage() + "dmg, " + enemy.GetNimi() + " " + enemy.GetHealth() + "/" + enemy.GetFullHealth() + "hp");
 
 
         // Jos ruudussa on itemi se käytetään ja lisätään hp ja damage itemin mukaan
@@ -156,8 +165,44 @@ public class GameController : MonoBehaviour {
         // Tiet toimii pelialueen reunana, ei pääse läpi
         } else if (hits.transform.tag == "tie") {
             move = false;
-
-        } 
+        // Kerattavat ovat objekteja, jotka pelaajan on kerattava
+        } else if (hits.transform.tag == "kerattava") {
+            if (hits.transform.name == "joukonHousut(Clone)") {
+                // Muutetaan UI:ssa oleva image täysin näkyväksi
+                joukonHousutImg.color = new Color(255, 255, 255, 255);
+                hits.transform.gameObject.SetActive(false);
+                move = true;
+                // Lisataan keratty objekti
+                keratty++;
+                Logger.Lisaa("You found your pants! " + keratty + "/4");
+            } else if (hits.transform.name == "joukonHattu(Clone)") {
+                joukonHattuImg.color = new Color(255, 255, 255, 255);
+                hits.transform.gameObject.SetActive(false);
+                move = true;
+                keratty++;
+                Logger.Lisaa("You found your hat! " + keratty + "/4");
+            } else if (hits.transform.name == "joukonKengat(Clone)") {
+                joukonKengatImg.color = new Color(255, 255, 255, 255);
+                hits.transform.gameObject.SetActive(false);
+                move = true;
+                keratty++;
+                Logger.Lisaa("You found your boots! " + keratty + "/4");
+            } else if (hits.transform.name == "joukonPaita(Clone)") {
+                joukonPaitaImg.color = new Color(255, 255, 255, 255);
+                hits.transform.gameObject.SetActive(false);
+                move = true;
+                keratty++;
+                Logger.Lisaa("You found your shirt! " + keratty + "/4");
+            }
+        
+        } else if (hits.transform.tag == "exit") {
+            if (keratty >= 4) {
+                Logger.Lisaa("Voitit pelin....");
+                move = true;
+            } else {
+                move = false;
+            }
+        }
 
         if (move) 
             StartCoroutine (Smooth(endpos, player));

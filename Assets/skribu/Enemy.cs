@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour {
     // Vihollistyyppi, eri vihollisia varten
     public int tyyppi;
     // Nimi viholliselle
-    public string nimi;
+    private string nimi;
 	private GameController gc;
     // GM, jotta viholliset voidaan lisätä listaan
     private GameManager gm;
@@ -127,5 +127,9 @@ public class Enemy : MonoBehaviour {
     // Palauttaa damagen
     public int GetDamage() {
         return this.damage;
+    }
+
+    public string GetNimi() {
+        return this.nimi;
     }
 }

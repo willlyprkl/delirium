@@ -3,9 +3,12 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class Player : MonoBehaviour {
+    
     // Pelaajan ominaisuudet
     private int hp;
     private int attack;
+    private int juotuMaara = 0;
+    private int tapot = 0;
 
     // UI:n tekstit ja näppäimet
     private Button wButton;
@@ -15,10 +18,12 @@ public class Player : MonoBehaviour {
     private Text hpText;
     private Text dmgText;
     private Text tapotText;
+
+    // Pelaajan animaattori, gamecontroller liikuttamista varten
     public Animator animator;
 	private GameController gc;
-	private int juotuMaara = 0;
-    private int tapot = 0;
+
+    // Estää pelaajan liiaallisen liikkumisen
     public bool playerMoving = false;
 
 

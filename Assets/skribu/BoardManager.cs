@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections.Generic;  // Listat
-using Random = UnityEngine.Random; // Unityn randomi
+using System.Collections.Generic;  
+using Random = UnityEngine.Random; 
 
 public class BoardManager : MonoBehaviour {
 
@@ -11,7 +11,6 @@ public class BoardManager : MonoBehaviour {
         public int minimum; // Minimi- ja maksimiarvot objekteille
         public int maximum;
 
-        // Konstruktori
         public Count(int min, int max){
             minimum = min;
             maximum = max;
@@ -27,8 +26,13 @@ public class BoardManager : MonoBehaviour {
     public Count metsaCount = new Count(5, 10);
     public Count vihollisCount = new Count(2, 3);
 
-    public GameObject player;                                  
+    public GameObject joukonHousut;                 // Vaatteet
+    public GameObject joukonPaita;
+    public GameObject joukonHattu;
+    public GameObject joukonKengat;                       
+    public GameObject player;                       // Pelaaja
     public GameObject exit;                         // Exit-prefabi
+                                                    
     public GameObject[] maaTilet;                   // Prefabit maatileistä
     public GameObject[] ruokaTilet;                 //          ruokatileistä
     public GameObject[] juomaTilet;                 //          juomatileistä
@@ -40,7 +44,7 @@ public class BoardManager : MonoBehaviour {
     private Transform boardKansio;                  // boardin "tilekansio"
     private List <Vector3> gridPositiot = new List<Vector3>(); // mahd. tilet
 
-    // Alustaa listan. Luo ruudukon.
+    // Luo ruudukon.
     void AlustaLista() {
         // Varmistetaan, että lista on tyhjä
         gridPositiot.Clear();
@@ -127,6 +131,11 @@ public class BoardManager : MonoBehaviour {
         Layouttaa(aseTilet, aseCount.minimum, aseCount.maximum);
         Layouttaa(metsaTilet, metsaCount.minimum, metsaCount.maximum);
         Layouttaa(vihollisTilet, vihollisCount.minimum, vihollisCount.maximum);
+
+        Instantiate(joukonHattu, RandomPositio(), Quaternion.identity);
+        Instantiate(joukonHousut, RandomPositio(), Quaternion.identity);
+        Instantiate(joukonKengat, RandomPositio(), Quaternion.identity);
+        Instantiate(joukonPaita, RandomPositio(), Quaternion.identity);
 
         // Exitti kartan yläkulmaan
         Instantiate(exit, new Vector3(sarakkeet - 1, rivit - 1, 0f), Quaternion.identity);
