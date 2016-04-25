@@ -24,6 +24,7 @@ public class BoardManager : MonoBehaviour {
     public Count ruokaCount = new Count(3, 5);
     public Count aseCount = new Count(1, 5);
     public Count metsaCount = new Count(5, 10);
+    public Count metsapropCount = new Count(3, 5);
     public Count vihollisCount = new Count(2, 3);
 
     public GameObject joukonHousut;                 // Vaatteet
@@ -38,6 +39,7 @@ public class BoardManager : MonoBehaviour {
     public GameObject[] juomaTilet;                 //          juomatileistä
     public GameObject[] aseTilet;                   //          asetileistä
     public GameObject[] metsaTilet;                 //          metsätileistä
+    public GameObject[] metsapropTilet;             //          metsäproptileistä
     public GameObject[] tieTilet;                   //          tietileistä
     public GameObject[] vihollisTilet;              //          vihollisista
 
@@ -94,7 +96,7 @@ public class BoardManager : MonoBehaviour {
     // Random-positioita
     Vector3 RandomPositio() {
         if (gridPositiot.Count < 1){
-            Debug.Log("Lista tyhjä");
+            //Debug.Log("Lista tyhjä");
             AlustaLista();
         }
         int randind = Random.Range(0, gridPositiot.Count);
@@ -130,6 +132,7 @@ public class BoardManager : MonoBehaviour {
         Layouttaa(ruokaTilet, ruokaCount.minimum, ruokaCount.maximum);
         Layouttaa(aseTilet, aseCount.minimum, aseCount.maximum);
         Layouttaa(metsaTilet, metsaCount.minimum, metsaCount.maximum);
+        Layouttaa(metsapropTilet, metsapropCount.minimum, metsapropCount.maximum);
         Layouttaa(vihollisTilet, vihollisCount.minimum, vihollisCount.maximum);
 
         Instantiate(joukonHattu, RandomPositio(), Quaternion.identity);

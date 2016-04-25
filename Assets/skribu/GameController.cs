@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour {
     // GameManager pelaajan vuoron päivittämiseen
     private GameManager gm;
 	public GameObject[] splat;
+    public GameObject[] puuSplat;
 
     private int keratty = 0;
 
@@ -32,6 +33,7 @@ public class GameController : MonoBehaviour {
         Vector2 endpos;
         // Pelaaja
         Player player;
+        Forest puu;
 
         bool move = false;
 
@@ -61,7 +63,16 @@ public class GameController : MonoBehaviour {
         // Jos ruudussa on vihollinen, estetään liike
         } else if (hits.transform.tag == "enemy") {
             move = false;
-        
+        } else if (hits.transform.tag == "puut") {
+            move = false;
+            enemy.animator.SetTrigger("enemyLyonti");
+            puu = hits.transform.GetComponent<Forest>();
+            puu.VahennaHp();
+            if (puu.GetHp() <= 0) {
+                GameObject randPuuSplat = puuSplat[Random.Range(0, puuSplat.Length)];
+                Instantiate(randPuuSplat, puu.transform.position, Quaternion.identity);
+                hits.transform.gameObject.SetActive(false);
+            }
         // Jos ruudussa on jotain muuta, esim. itemi, liikutaan siihen
         } else {
             move = true;
@@ -87,6 +98,7 @@ public class GameController : MonoBehaviour {
         Vector2 startpos = player.transform.position;
         // Loppuruutu
         Vector2 endpos;
+        Forest puu;
         // Vihollinen
         Enemy enemy;
         // Itemi
@@ -160,8 +172,16 @@ public class GameController : MonoBehaviour {
 			Logger.Lisaa("You found " + item.GetItemname () + ", gain " + item.GetDamage () + "dmg");
 
 			// Puista ei välitetä
-		} else if (hits.transform.tag == "puut") {
-            move = true;
+        } else if (hits.transform.tag == "puut") {           
+            player.animator.SetTrigger("joukoLyonti");
+            puu = hits.transform.GetComponent<Forest>();
+            puu.VahennaHp();
+            if (puu.GetHp() <= 0) {
+                GameObject randPuuSplat = puuSplat[Random.Range(0, puuSplat.Length)];
+                Instantiate(randPuuSplat, puu.transform.position, Quaternion.identity);
+                hits.transform.gameObject.SetActive(false);
+            }
+            move = false;
         // Tiet toimii pelialueen reunana, ei pääse läpi
         } else if (hits.transform.tag == "tie") {
             move = false;
@@ -202,6 +222,8 @@ public class GameController : MonoBehaviour {
             } else {
                 move = false;
             }
+        } else {
+            move = true;
         }
 
         if (move) 
