@@ -62,7 +62,9 @@ public class BoardManager : MonoBehaviour {
     }
 
     // Luo kenttäpohjan
-    void KenttaSetuppi() {
+	void KenttaSetuppi(int a, int b) {
+		sarakkeet = a;
+		rivit = b;
         // Luo "kansion"
         boardKansio = new GameObject("Board").transform;
 
@@ -123,9 +125,9 @@ public class BoardManager : MonoBehaviour {
 
 
     // Setuppi
-    public void Setuppi() {
+	public void Setuppi(int a, int b) {
         // Luodaan kentän pohja
-        KenttaSetuppi();
+		KenttaSetuppi(a, b);
         // Alustetaan vektorilista
         AlustaLista();
         // Layoutataan kaikki mahdolliset itemit yms.(tilet, min, max)

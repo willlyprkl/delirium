@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour {
 
     // Kenttäskribu pelialueen luontia varten
+	public Loader loader;
     public BoardManager kenttaScribu;
     // Pelaajan vuoro bool
     public bool playerTurn = true;
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour {
 	void Awake () {
         // Haetaan kenttäskribu
         kenttaScribu = GetComponent<BoardManager>();
+
+		loader = GameObject.Find ("Loader").GetComponent<Loader> ();
         // Luodaan vihollislista
         viholliset = new List<Enemy>();
         // Ajetaan kentänluonti
@@ -25,7 +28,21 @@ public class GameManager : MonoBehaviour {
 
     // Kentänluonti
     void InitGame() {
-        kenttaScribu.Setuppi();
+		int a = 8;
+		int b = 8;
+
+		if (loader.GetKoko() == 1) {
+			a = 8;
+			b = 8;
+		} else if(loader.GetKoko() == 2) {
+			a = 16;
+			b = 16;
+		} else if (loader.GetKoko() == 3) {
+			a = 32;
+			b = 32;
+		}
+
+		kenttaScribu.Setuppi(a, b);
     }
 
     // Tarkistetaan onko pelaajan vuoro ja liikutetaan viholliset, jos ei ole.

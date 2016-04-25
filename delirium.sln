@@ -1,7 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
-Project("{14A32E3A-D85B-0999-B5CE-39D376BE8C8B}") = "delirium", "Assembly-CSharp.csproj", "{89214EFD-8712-4B58-EA80-C147BE47F831}"
+Project("{E555CAA9-146A-D5C2-002B-B1BA6846FBBB}") = "Delirium", "Assembly-CSharp.csproj", "{942FB0D5-EA71-3107-D17A-37A8B55D9C8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{89214EFD-8712-4B58-EA80-C147BE47F831}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{89214EFD-8712-4B58-EA80-C147BE47F831}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{89214EFD-8712-4B58-EA80-C147BE47F831}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{89214EFD-8712-4B58-EA80-C147BE47F831}.Release|Any CPU.Build.0 = Release|Any CPU
+		{942FB0D5-EA71-3107-D17A-37A8B55D9C8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{942FB0D5-EA71-3107-D17A-37A8B55D9C8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{942FB0D5-EA71-3107-D17A-37A8B55D9C8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{942FB0D5-EA71-3107-D17A-37A8B55D9C8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
