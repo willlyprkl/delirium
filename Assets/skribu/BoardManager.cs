@@ -30,7 +30,8 @@ public class BoardManager : MonoBehaviour {
     public GameObject joukonHousut;                 // Vaatteet
     public GameObject joukonPaita;
     public GameObject joukonHattu;
-    public GameObject joukonKengat;                       
+    public GameObject joukonKengat;
+    public GameObject joukonLompakko;
     public GameObject player;                       // Pelaaja
     public GameObject exit;                         // Exit-prefabi
                                                     
@@ -66,8 +67,8 @@ public class BoardManager : MonoBehaviour {
         boardKansio = new GameObject("Board").transform;
 
         // Loop jossa käydään kaikki ruudut läpi
-        for(int x = -1; x < sarakkeet + 1; x++) {
-            for(int y = -1; y < rivit + 1; y++) {
+        for(int x = -2; x < sarakkeet + 1; x++) {
+            for(int y = -2; y < rivit + 1; y++) {
                 // Random maatile jokaiseen ruutuun
                 GameObject alustettava = maaTilet[Random.Range(0, maaTilet.Length)];
                 // Teistä reunat kartalle
@@ -79,7 +80,7 @@ public class BoardManager : MonoBehaviour {
                     alustettava = tieTilet[4];
                 } else if (y == rivit && x >= 0 && x < rivit) {
                     alustettava = tieTilet[3];
-                } else if (x == -1 || x == sarakkeet || y == -1 || y == rivit){
+                } else if (x <= -1 || x == sarakkeet || y <= -1 || y == rivit){
                     alustettava = tieTilet[0];
                 }
 
@@ -139,6 +140,7 @@ public class BoardManager : MonoBehaviour {
         Instantiate(joukonHousut, RandomPositio(), Quaternion.identity);
         Instantiate(joukonKengat, RandomPositio(), Quaternion.identity);
         Instantiate(joukonPaita, RandomPositio(), Quaternion.identity);
+        Instantiate(joukonLompakko, RandomPositio(), Quaternion.identity);
 
         // Exitti kartan yläkulmaan
         Instantiate(exit, new Vector3(sarakkeet - 1, rivit - 1, 0f), Quaternion.identity);

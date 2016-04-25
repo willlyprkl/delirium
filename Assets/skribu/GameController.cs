@@ -14,12 +14,20 @@ public class GameController : MonoBehaviour {
     private Image joukonPaitaImg;
     private Image joukonKengatImg;
     private Image joukonHattuImg;
+    private Image joukonLompakkoImg;
+    private Image ajatusImg;
 
 	void Start () {
         joukonHattuImg = GameObject.Find("joukonhattuImg").GetComponent<Image>();
         joukonHousutImg = GameObject.Find("joukonhousutImg").GetComponent<Image>();
         joukonKengatImg = GameObject.Find("joukonkengatImg").GetComponent<Image>();
         joukonPaitaImg = GameObject.Find("joukonpaitaImg").GetComponent<Image>();
+        joukonLompakkoImg = GameObject.Find("joukonlompakkoImg").GetComponent<Image>();
+        ajatusImg = GameObject.Find("ajatusImg").GetComponent<Image>();
+
+
+        ajatusImg.gameObject.SetActive(false);
+
 	}
 	
     // Vihollisen liikkuminen(suunta, hor/ver, vihollinen)
@@ -194,32 +202,40 @@ public class GameController : MonoBehaviour {
                 move = true;
                 // Lisataan keratty objekti
                 keratty++;
-                Logger.Lisaa("You found your pants! " + keratty + "/4");
+                Logger.Lisaa("You found your pants! " + keratty + "/5");
             } else if (hits.transform.name == "joukonHattu(Clone)") {
                 joukonHattuImg.color = new Color(255, 255, 255, 255);
                 hits.transform.gameObject.SetActive(false);
                 move = true;
                 keratty++;
-                Logger.Lisaa("You found your hat! " + keratty + "/4");
+                Logger.Lisaa("You found your hat! " + keratty + "/5");
             } else if (hits.transform.name == "joukonKengat(Clone)") {
                 joukonKengatImg.color = new Color(255, 255, 255, 255);
                 hits.transform.gameObject.SetActive(false);
                 move = true;
                 keratty++;
-                Logger.Lisaa("You found your boots! " + keratty + "/4");
+                Logger.Lisaa("You found your boots! " + keratty + "/5");
             } else if (hits.transform.name == "joukonPaita(Clone)") {
                 joukonPaitaImg.color = new Color(255, 255, 255, 255);
                 hits.transform.gameObject.SetActive(false);
                 move = true;
                 keratty++;
-                Logger.Lisaa("You found your shirt! " + keratty + "/4");
+                Logger.Lisaa("You found your shirt! " + keratty + "/5");
+            } else if (hits.transform.name == "joukonLompakko(Clone)") {
+                joukonLompakkoImg.color = new Color(255, 255, 255, 255); 
+                hits.transform.gameObject.SetActive(false);
+                move = true;
+                keratty++;
+                Logger.Lisaa("You found your wallet! " + keratty + "/5");
+
             }
         
         } else if (hits.transform.tag == "exit") {
-            if (keratty >= 4) {
+            if (keratty >= 5) {
                 Logger.Lisaa("Voitit pelin....");
                 move = true;
             } else {
+                StartCoroutine(Ajatus());
                 move = false;
             }
         } else {
@@ -275,4 +291,10 @@ public class GameController : MonoBehaviour {
         }
     }
         
+
+    IEnumerator Ajatus() {
+        ajatusImg.gameObject.SetActive(true);
+        yield return new WaitForSeconds(5);
+        ajatusImg.gameObject.SetActive(false);
+    }
 }

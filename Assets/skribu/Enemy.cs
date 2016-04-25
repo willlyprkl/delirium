@@ -81,8 +81,8 @@ public class Enemy : MonoBehaviour {
         float dy = target.position.y - this.transform.position.y;
 
 
-        // Jos deltat on yli 20, vihollinen ei "aggroa"
-        if ((Mathf.Abs(dx) < 20) && (Mathf.Abs(dy) < 20)) {
+        // Jos deltat on yli x, vihollinen ei "aggroa"
+        if ((Mathf.Abs(dx) < 15) && (Mathf.Abs(dy) < 15)) {
             // Jos x-suuntainen ero on isompi kuin y-suuntainen, niin liikutaan x-suuntaisesti
             if (Mathf.Abs(dx) > Mathf.Abs(dy)) {
                 // Jos x-eroavaisuus on miinuksella, liikutaan miinus-suuntaan
