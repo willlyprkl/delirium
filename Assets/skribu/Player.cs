@@ -9,6 +9,8 @@ public class Player : MonoBehaviour {
     private int attack;
     private int juotuMaara = 0;
     private int tapot = 0;
+	private int puutkaatuu = 0;
+	private int syotyMetsa = 0;
 
     // UI:n tekstit ja näppäimet
     private Button wButton;
@@ -105,4 +107,19 @@ public class Player : MonoBehaviour {
         tapot++;
         tapotText.text = "Kills: " + tapot;
     }
+	public void puuIsDead() {
+		puutkaatuu++;
+		if (puutkaatuu == 20) {
+			LisaaDmg (15);
+			Logger.Lisaa ("+++++ WOODCUTTER SURVIVOR ACHIEVEMENT: WOODY WOODPECKER +++++");
+		}
+	}
+	public void syoMetsa() {
+		syotyMetsa++;
+		if (syotyMetsa == 10) {
+			LisaaHp (15);
+			LisaaDmg (15);
+			Logger.Lisaa ("+++++ MUSHROOMS SURVIVOR ACHIEVEMENT: SECRET PSYCHEDELIC TRIP +++++");
+		}
+	}
 }

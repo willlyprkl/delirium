@@ -169,6 +169,7 @@ public class GameController : MonoBehaviour {
             hits.transform.gameObject.SetActive(false);
 			player.LisaaDmg (item.GetDamage());
 			player.LisaaHp (item.GetHp());
+			player.syoMetsa ();
             move = true;
 			Logger.Lisaa("You ate " + item.GetItemname () + ", gain " + item.GetHp ()+ "hp" + " and " + item.GetDamage () + "dmg");
 
@@ -187,6 +188,7 @@ public class GameController : MonoBehaviour {
             if (puu.GetHp() <= 0) {
                 GameObject randPuuSplat = puuSplat[Random.Range(0, puuSplat.Length)];
                 Instantiate(randPuuSplat, puu.transform.position, Quaternion.identity);
+				player.puuIsDead ();
                 hits.transform.gameObject.SetActive(false);
             }
             move = false;
