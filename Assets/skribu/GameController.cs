@@ -266,7 +266,7 @@ public class GameController : MonoBehaviour {
         // Liikkumiskohteen ja position välinen neliö
         float sqrRemainingDistance = (player.transform.position - asd).sqrMagnitude;
         // Liikkumisaika
-        float speed = Time.deltaTime * 10;
+        float speed = 0.1f;
 
         // Liikutetaan kunnes ollaan oikeassa paikassa
         while (sqrRemainingDistance > float.Epsilon) {
@@ -283,7 +283,7 @@ public class GameController : MonoBehaviour {
         Vector3 asd = endpos;
         Rigidbody2D rb2D = enemy.gameObject.GetComponent<Rigidbody2D>();
         float sqrRemainingDistance = (enemy.transform.position - asd).sqrMagnitude;
-        float speed = Time.deltaTime * 10;
+        float speed = 0.1f;
 
         while (sqrRemainingDistance > float.Epsilon) {
             Vector3 newPos = Vector3.MoveTowards(rb2D.position, asd, speed);

@@ -53,24 +53,26 @@ public class BoardManager : MonoBehaviour {
         gridPositiot.Clear();
 
         // tarvittava määrä sarakkeita per rivi
-        for(int x = 1; x < sarakkeet - 1; x++){
-            for(int y = 1; y < rivit - 1; y++) {
-                gridPositiot.Add(new Vector3(x, y, 0f));
+        for(int x = 0; x <= sarakkeet - 1; x++) {
+            for(int y = 0; y <= rivit - 1; y++) {
+                if ((x == (sarakkeet - 1)) && (y == (rivit - 1))) {
+                    //Debug.Log("Jou");
+                } else {
+                    gridPositiot.Add(new Vector3(x, y, 0f));
+                }
             }
         }
 
     }
 
     // Luo kenttäpohjan
-	void KenttaSetuppi(int a, int b) {
-		sarakkeet = a;
-		rivit = b;
+	void KenttaSetuppi() {
         // Luo "kansion"
         boardKansio = new GameObject("Board").transform;
 
         // Loop jossa käydään kaikki ruudut läpi
-        for(int x = -2; x < sarakkeet + 1; x++) {
-            for(int y = -2; y < rivit + 1; y++) {
+        for(int x = -1; x < sarakkeet + 1; x++) {
+            for(int y = -1; y < rivit + 1; y++) {
                 // Random maatile jokaiseen ruutuun
                 GameObject alustettava = maaTilet[Random.Range(0, maaTilet.Length)];
                 // Teistä reunat kartalle
@@ -125,9 +127,89 @@ public class BoardManager : MonoBehaviour {
 
 
     // Setuppi
-	public void Setuppi(int a, int b) {
+	public void Setuppi(int koko, int vaikeus) {
+        if (koko <= 1) {
+            sarakkeet = 8;
+            rivit = 8;
+            // 8^2 = 64;
+
+            juomaCount.minimum = 2;
+            juomaCount.maximum = 3;
+            ruokaCount.minimum = 2;
+            ruokaCount.maximum = 4;
+            aseCount.minimum = 1;
+            aseCount.maximum = 3;
+            metsaCount.minimum = 15;
+            metsaCount.maximum = 20;
+            metsapropCount.minimum = 8;
+            metsapropCount.maximum = 10;
+
+        } else if (koko == 2) {
+            sarakkeet = 16;
+            rivit = 16;
+            // 16^2 = 256;
+
+            juomaCount.minimum = 12;
+            juomaCount.maximum = 20;
+            ruokaCount.minimum = 12;
+            ruokaCount.maximum = 20;
+            aseCount.minimum = 8;
+            aseCount.maximum = 12;
+            metsaCount.minimum = 80;
+            metsaCount.maximum = 100;
+            metsapropCount.minimum = 15;
+            metsapropCount.maximum = 30;
+
+        } else if (koko >= 3) {
+            sarakkeet = 32;
+            rivit = 32;
+            // 1024;
+
+            juomaCount.minimum = 34;
+            juomaCount.maximum = 60;
+            ruokaCount.minimum = 34;
+            ruokaCount.maximum = 60;
+            aseCount.minimum = 24;
+            aseCount.maximum = 36;
+            metsaCount.minimum = 400;
+            metsaCount.maximum = 450;
+            metsapropCount.minimum = 100;
+            metsapropCount.maximum = 130;
+        }
+
+        if (vaikeus <= 1 && koko <= 1) {
+            vihollisCount.minimum = 1;
+            vihollisCount.maximum = 2;
+        } else if (vaikeus == 2 && koko <= 1) {
+            vihollisCount.minimum = 2;
+            vihollisCount.maximum = 3;
+        } else if (vaikeus >= 3 && koko <= 1) {
+            vihollisCount.minimum = 4;
+            vihollisCount.maximum = 5;
+
+        } else if (vaikeus <= 1 && koko == 2) {
+            vihollisCount.minimum = 2;
+            vihollisCount.maximum = 3;
+        } else if (vaikeus == 2 && koko == 2) {
+            vihollisCount.minimum = 4;
+            vihollisCount.maximum = 7;
+        } else if (vaikeus >= 3 && koko == 2) {
+            vihollisCount.minimum = 7;
+            vihollisCount.maximum = 10;
+
+        } else if (vaikeus <= 1 && koko >= 3) {
+            vihollisCount.minimum = 45;
+            vihollisCount.maximum = 55;
+        } else if (vaikeus == 2 && koko >= 3) {
+            vihollisCount.minimum = 60;
+            vihollisCount.maximum = 80;
+        } else if (vaikeus >= 3 && koko >= 3) {
+            vihollisCount.minimum = 150;
+            vihollisCount.maximum = 200;
+        }
+
         // Luodaan kentän pohja
-		KenttaSetuppi(a, b);
+        KenttaSetuppi();
         // Alustetaan vektorilista
         AlustaLista();
         // Layoutataan kaikki mahdolliset itemit yms.(tilet, min, max)
@@ -146,7 +228,7 @@ public class BoardManager : MonoBehaviour {
 
         // Exitti kartan yläkulmaan
         Instantiate(exit, new Vector3(sarakkeet - 1, rivit - 1, 0f), Quaternion.identity);
-        //Instantiate(player, new Vector3(Random.Range(0, sarakkeet), Random.Range(0, rivit), 0f), Quaternion.identity);
+        player.transform.position = RandomPositio();
     }
 
     // Vihollisten respawnaus

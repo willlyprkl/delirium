@@ -28,21 +28,7 @@ public class GameManager : MonoBehaviour {
 
     // Kentänluonti
     void InitGame() {
-		int a = 8;
-		int b = 8;
-
-		if (loader.GetKoko() == 1) {
-			a = 8;
-			b = 8;
-		} else if(loader.GetKoko() == 2) {
-			a = 16;
-			b = 16;
-		} else if (loader.GetKoko() == 3) {
-			a = 32;
-			b = 32;
-		}
-
-		kenttaScribu.Setuppi(a, b);
+        kenttaScribu.Setuppi(loader.GetKoko(), loader.GetVaikeus());
     }
 
     // Tarkistetaan onko pelaajan vuoro ja liikutetaan viholliset, jos ei ole.
