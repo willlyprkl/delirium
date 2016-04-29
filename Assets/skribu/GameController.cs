@@ -5,7 +5,9 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
     // GameManager pelaajan vuoron päivittämiseen
     private GameManager gm;
-	public GameObject[] splat;
+    private Sounds sounds;
+ 
+    public GameObject[] splat;
     public GameObject[] puuSplat;
 
     private int keratty = 0;
@@ -23,9 +25,10 @@ public class GameController : MonoBehaviour {
         joukonKengatImg = GameObject.Find("joukonkengatImg").GetComponent<Image>();
         joukonPaitaImg = GameObject.Find("joukonpaitaImg").GetComponent<Image>();
         joukonLompakkoImg = GameObject.Find("joukonlompakkoImg").GetComponent<Image>();
-        ajatusImg = GameObject.Find("ajatusImg").GetComponent<Image>();
+        ajatusImg = GameObject.Find("ajatusImg").GetComponent<Image>(); 
 
-
+        sounds = GameObject.Find("Sounds").GetComponent<Sounds>();
+        Debug.Log(sounds);
         ajatusImg.gameObject.SetActive(false);
 
 	}
@@ -63,6 +66,7 @@ public class GameController : MonoBehaviour {
         } else if (hits.transform.tag == "Player") {
             move = false;
             player = hits.transform.GetComponent<Player>();
+            sounds.PlaySoundY(enemy.enemySound);
             player.VahennaHp(enemy.GetDamage());
             //Debug.Log(enemy.nimi + " hit player for " + enemy.damage + "dmg");
             Logger.Lisaa(enemy.GetNimi() + " hit player for " + enemy.GetDamage() + "dmg");
@@ -127,12 +131,40 @@ public class GameController : MonoBehaviour {
 
         // Jos ruutu on tyhjä, liikutaan
         if (hits.transform == null) {
+            int i = Random.Range(0, 25);
+
+            if (i == 10) {
+                sounds.PlaySound(player.saatana[player.aaniValinta]);
+            } else if (i == 5){
+                sounds.PlaySound(player.jumalauta[player.aaniValinta]);
+            } else if (i == 1) {
+                sounds.PlaySound(player.perkele[player.aaniValinta]);
+            } else if (i == 15) {
+                sounds.PlaySound(player.heng[player.aaniValinta]);
+            } else if (i == 24) {
+                sounds.PlaySound(player.darra[player.aaniValinta]);
+            } else if (i == 20) {
+                sounds.PlaySound(player.huhhuh[player.aaniValinta]);
+            }
+
             move = true;
 
         // Jos ruudussa on vihollinen, tehdään viholliseen vahinkoa
         } else if (hits.transform.tag == "enemy") {
             enemy = hits.transform.GetComponent<Enemy>();
             player.animator.SetTrigger("joukoLyonti");
+            int rand = 0;
+
+            if (player.aaniValinta <= 1) {
+                rand = Random.Range(0, 4);
+            } else if (player.aaniValinta == 2) {
+                rand = Random.Range(4, 8);
+            } else if (player.aaniValinta  >= 3) {
+                rand = Random.Range(8, 12);
+            }
+
+            sounds.PlaySound(player.lyonti[rand]);
+
             enemy.VahennaHp(player.GetDamage());
             //Debug.Log(enemy.ToString());
             // Jos vihollisen hp loppuu, vihollinen tuhotaan
@@ -156,6 +188,7 @@ public class GameController : MonoBehaviour {
         } else if (hits.transform.tag == "juoma") {
 			item = hits.transform.GetComponent<Item> ();
             hits.transform.gameObject.SetActive(false);
+            sounds.PlaySoundX(player.juoma);
 			player.LisaaHp (item.GetHp ());
 			player.LisaaDmg(item.GetDamage());
             move = true;
@@ -167,6 +200,7 @@ public class GameController : MonoBehaviour {
         } else if (hits.transform.tag == "ruoka") {
 			item = hits.transform.GetComponent<Item> ();
             hits.transform.gameObject.SetActive(false);
+            sounds.PlaySound2(player.syonti);
 			player.LisaaDmg (item.GetDamage());
 			player.LisaaHp (item.GetHp());
 			player.syoMetsa ();
@@ -176,6 +210,7 @@ public class GameController : MonoBehaviour {
 		} else if (hits.transform.tag == "ase") {
 			item = hits.transform.GetComponent<Item> ();
 			player.LisaaDmg(item.GetDamage());
+            sounds.PlaySound2(player.ase);
 			hits.transform.gameObject.SetActive(false);
             move = true;
 			Logger.Lisaa("You found " + item.GetItemname () + ", gain " + item.GetDamage () + "dmg");
@@ -183,6 +218,19 @@ public class GameController : MonoBehaviour {
 			// Puista ei välitetä
         } else if (hits.transform.tag == "puut") {           
             player.animator.SetTrigger("joukoLyonti");
+
+            int rand = 0;
+
+            if (player.aaniValinta <= 1) {
+                rand = Random.Range(0, 4);
+            } else if (player.aaniValinta == 2) {
+                rand = Random.Range(4, 8);
+            } else if (player.aaniValinta  >= 3) {
+                rand = Random.Range(8, 12);
+            }
+
+            sounds.PlaySoundX(player.lyonti);
+            sounds.PlaySoundZ(player.puu);
             puu = hits.transform.GetComponent<Forest>();
             puu.VahennaHp();
             if (puu.GetHp() <= 0) {
@@ -197,6 +245,7 @@ public class GameController : MonoBehaviour {
             move = false;
         // Kerattavat ovat objekteja, jotka pelaajan on kerattava
         } else if (hits.transform.tag == "kerattava") {
+            sounds.PlaySound2(player.vaatteet);
             if (hits.transform.name == "joukonHousut(Clone)") {
                 // Muutetaan UI:ssa oleva image täysin näkyväksi
                 joukonHousutImg.color = new Color(255, 255, 255, 255);
@@ -238,14 +287,17 @@ public class GameController : MonoBehaviour {
                 move = true;
             } else {
                 StartCoroutine(Ajatus());
+                sounds.PlaySound(player.hukassa[player.aaniValinta]);
                 move = false;
             }
         } else {
             move = true;
         }
 
-        if (move) 
+        if (move) {
             StartCoroutine (Smooth(endpos, player));
+            sounds.LiikeSound(player.move);
+        }
 
         // Pelaajan vuoro loppuu
         player.playerMoving = false;

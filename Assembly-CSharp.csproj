@@ -55,6 +55,7 @@
      <Compile Include="Assets\skribu\Logger.cs" />
      <Compile Include="Assets\skribu\MainMenu.cs" />
      <Compile Include="Assets\skribu\Player.cs" />
+     <Compile Include="Assets\skribu\Sounds.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

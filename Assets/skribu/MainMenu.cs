@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
+    private Sounds sounds;
+    public AudioClip nappi;
+
 	private Loader loader;
 
 	private Button storyButton;
@@ -39,13 +42,8 @@ public class MainMenu : MonoBehaviour {
 	private int koko = 2;
 
 
-	//shitit
-	public BoardManager kenttaScribu;
-	public List<Enemy> viholliset;
-
-
-
 	void Start() {
+        sounds = GameObject.Find("Sounds").GetComponent<Sounds>();
 
 		loader = GameObject.Find ("Loader").GetComponent<Loader> ();
 
@@ -113,13 +111,13 @@ public class MainMenu : MonoBehaviour {
 
 		SceneManager.LoadScene ("main");
 
-
+        Aani();
 	}
 
 	void Valinnat() {
 		paaKansio.gameObject.SetActive (false);
 		optionKansio.gameObject.SetActive (true);
-
+        Aani();
 	
 	}
 
@@ -127,38 +125,44 @@ public class MainMenu : MonoBehaviour {
 		paaKansio.gameObject.SetActive (false);
 		storyKansio.gameObject.SetActive (true);
 
-
+        Aani();
 	}
 
 	void VaikeusAste(int a) {
 		vaikeusKansio.gameObject.SetActive (false);
 		paaKansio.gameObject.SetActive (true);
 		this.vaikeus = a;
-	}
+        Aani();
+    }
 
 	void MitenPelata() {
 		paaKansio.gameObject.SetActive (false);
 		howToKansio.gameObject.SetActive (true);
 
-
+        Aani();
 	}
 
 	void Vaikeus () {
 		optionKansio.gameObject.SetActive (false);
 		vaikeusKansio.gameObject.SetActive (true);
-
+        Aani();
 	}
 
 	void Koko () {
 		optionKansio.gameObject.SetActive (false);
 		sizeKansio.gameObject.SetActive (true);
-
+        Aani();
 	}
 	void SetKoko (int a) {
 		sizeKansio.gameObject.SetActive (false);
 		paaKansio.gameObject.SetActive (true);
 		this.koko = a;
+        Aani();
 	}
+   
+    void Aani() {
+        sounds.PlaySound(nappi);
+    }
 		
 
 }

@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
     private int tapot = 0;
 	private int puutkaatuu = 0;
 	private int syotyMetsa = 0;
+    public int aaniValinta;
 
     // UI:n tekstit ja näppäimet
     private Button wButton;
@@ -20,6 +21,24 @@ public class Player : MonoBehaviour {
     private Text hpText;
     private Text dmgText;
     private Text tapotText;
+
+    // Äänet
+    public AudioClip[] puu;
+    public AudioClip[] lyonti;
+    public AudioClip[] kuole;
+    public AudioClip[] royhtays;
+    public AudioClip[] heng;
+    public AudioClip[] darra;
+    public AudioClip[] huhhuh;
+    public AudioClip[] jumalauta;
+    public AudioClip[] saatana;
+    public AudioClip[] perkele;
+    public AudioClip[] juoma;
+    public AudioClip[] hukassa;
+    public AudioClip syonti;
+    public AudioClip vaatteet;
+    public AudioClip move;
+    public AudioClip ase;
 
     // Pelaajan animaattori, gamecontroller liikuttamista varten
     public Animator animator;
@@ -33,6 +52,7 @@ public class Player : MonoBehaviour {
         // Alustetaan statsit, haetaan napit ja tekstit
         hp = 100;
         attack = 50;
+        aaniValinta = Random.Range(0, 3);
         animator = GetComponent<Animator>();
 		gc = GameObject.Find ("GameController").GetComponent<GameController> ();
 
