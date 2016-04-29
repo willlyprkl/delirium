@@ -173,6 +173,7 @@ public class GameController : MonoBehaviour {
                 // Kuollut vihollinen = veriläikkä
                 GameObject randsplat = splat[Random.Range(0, splat.Length)];
 				Instantiate (randsplat, enemy.transform.position, Quaternion.identity);
+                sounds.PlaySoundZ(enemy.enemySound);
 				Destroy(enemy.gameObject);
                 // Tappo kill-counteriin
                 player.Tappo();
