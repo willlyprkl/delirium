@@ -11,6 +11,11 @@ public class MainMenu : MonoBehaviour {
 
 	private Loader loader;
 
+	private Image sade2;
+
+	public Vector2 alku;
+	public Vector2 loppu;
+
 	private Button storyButton;
 	private Button optionsButton;
 	private Button startButton;
@@ -41,8 +46,11 @@ public class MainMenu : MonoBehaviour {
 	private int vaikeus = 2;
 	private int koko = 2;
 
+	float aika;
 
 	void Start() {
+		sade2 = GameObject.Find ("Sade2").GetComponent<Image>();
+
         sounds = GameObject.Find("Sounds").GetComponent<Sounds>();
 
 		loader = GameObject.Find ("Loader").GetComponent<Loader> ();
@@ -86,10 +94,12 @@ public class MainMenu : MonoBehaviour {
 		backButton.onClick.AddListener (() => {
 			storyKansio.gameObject.SetActive (false);
 			paaKansio.gameObject.SetActive (true);
+			Aani();
 		});
 		backButton2.onClick.AddListener (() => {
 			howToKansio.gameObject.SetActive (false);
 			paaKansio.gameObject.SetActive (true);
+			Aani();
 		});
 		pieniButton.onClick.AddListener (() => (SetKoko (1)));
 		mediumButton.onClick.AddListener (() => (SetKoko (2)));
@@ -101,9 +111,23 @@ public class MainMenu : MonoBehaviour {
 		vaikeusKansio.gameObject.SetActive (false);
 		howToKansio.gameObject.SetActive (false);
 
-
+		alku = new Vector2(540, 730);
+		loppu = new Vector2 (540, -730);
 
 	}
+
+	void Update() {
+
+		if (aika >= 0.8f) {
+			aika = 0f;
+			sade2.transform.position = alku;
+		}
+		aika += (Time.deltaTime / 10);
+
+		sade2.transform.position = Vector3.Lerp (alku, loppu, aika);
+	}
+
+
 
 	void AlotaPeli(Loader loader) {
 		loader.SetKoko (koko);
@@ -161,8 +185,7 @@ public class MainMenu : MonoBehaviour {
 	}
    
     void Aani() {
-        sounds.PlaySound(nappi);
+		sounds.LiikeSound(nappi);
     }
 		
-
 }

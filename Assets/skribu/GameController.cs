@@ -187,9 +187,14 @@ public class GameController : MonoBehaviour {
         // Jos ruudussa on itemi se käytetään ja lisätään hp ja damage itemin mukaan
 
         } else if (hits.transform.tag == "juoma") {
+			int rand;
+			rand = Random.Range (0, 11);
 			item = hits.transform.GetComponent<Item> ();
             hits.transform.gameObject.SetActive(false);
             sounds.PlaySoundX(player.juoma);
+			if (rand <= 3) {
+				sounds.PlaySoundY (player.royhtays);
+			}
 			player.LisaaHp (item.GetHp ());
 			player.LisaaDmg(item.GetDamage());
             move = true;
