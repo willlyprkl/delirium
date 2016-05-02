@@ -17,10 +17,11 @@ public class GameManager : MonoBehaviour {
     private float vuoroAika = 0.1f;
 
     private Image gameOverImg;
+    private Text gameOverText;
     private Button quitButton;
     private Button mmButton;
 
-    public bool gameOver = false;
+    public bool pause = false;
 
     // Pelin käynnistys
 	void Awake () {
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour {
         kenttaScribu = GetComponent<BoardManager>();
 
         gameOverImg = GameObject.Find("gameOverImg").GetComponent<Image>();
+        gameOverText = GameObject.Find("gameOverText").GetComponent<Text>();
         quitButton = GameObject.Find("quitButton").GetComponent<Button>();
         mmButton = GameObject.Find("mmButton").GetComponent<Button>();
 
@@ -50,7 +52,7 @@ public class GameManager : MonoBehaviour {
 
     // Tarkistetaan onko pelaajan vuoro ja liikutetaan viholliset, jos ei ole.
     void Update () {
-        if (playerTurn || enemyMoving || gameOver)
+        if (playerTurn || enemyMoving || pause)
             return;
 
         StartCoroutine(Liikutavihut());
@@ -86,8 +88,13 @@ public class GameManager : MonoBehaviour {
         enemyMoving = false;
     }
 
-    public void GameOver() {
+    public void GameOver(bool voitto) {
         gameOverImg.gameObject.SetActive(true);
+        if (voitto) {
+            gameOverText.text = "You win!";
+        } else {
+            gameOverText.text = "Game over";
+        }
         StartCoroutine(Liikutakuva());
     }
 

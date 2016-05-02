@@ -73,8 +73,9 @@ public class GameController : MonoBehaviour {
             enemy.animator.SetTrigger("enemyLyonti");
 
             if (player.GetHealth() <= 0) {
-                gm.gameOver = true;
-                gm.GameOver();
+                sounds.PlaySound(player.kuole[player.aaniValinta]);
+                gm.pause = true;
+                gm.GameOver(false);
             }
 
         // Jos ruudussa on vihollinen, estetään liike
@@ -107,7 +108,7 @@ public class GameController : MonoBehaviour {
         if (gm.enemyMoving || player.playerMoving)
             return;
 
-        if (gm.gameOver) {
+        if (gm.pause) {
             return;
         }
 
@@ -299,6 +300,8 @@ public class GameController : MonoBehaviour {
         } else if (hits.transform.tag == "exit") {
             if (keratty >= 5) {
                 Logger.Lisaa("Voitit pelin....");
+                gm.pause = true;
+                gm.GameOver(true);
                 move = true;
             } else {
                 StartCoroutine(Ajatus());
