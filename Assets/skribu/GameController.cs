@@ -74,6 +74,7 @@ public class GameController : MonoBehaviour {
 
             if (player.GetHealth() <= 0) {
                 sounds.PlaySound(player.kuole[player.aaniValinta]);
+				player.animator.SetTrigger ("kuolema");
                 gm.pause = true;
                 gm.GameOver(false);
             }

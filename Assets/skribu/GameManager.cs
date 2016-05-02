@@ -17,9 +17,14 @@ public class GameManager : MonoBehaviour {
     private float vuoroAika = 0.1f;
 
     private Image gameOverImg;
+	private Image voittoImage;
+	private Image havioImage;
     private Text gameOverText;
     private Button quitButton;
     private Button mmButton;
+
+	public AudioClip gameOverSound;
+	private Sounds sounds;
 
     public bool pause = false;
 
@@ -29,9 +34,15 @@ public class GameManager : MonoBehaviour {
         kenttaScribu = GetComponent<BoardManager>();
 
         gameOverImg = GameObject.Find("gameOverImg").GetComponent<Image>();
+		voittoImage = GameObject.Find ("VoittoImg").GetComponent<Image> ();
+		havioImage = GameObject.Find ("HavioImg").GetComponent<Image> ();
+		voittoImage.gameObject.SetActive (false);
+		havioImage.gameObject.SetActive (false);
         gameOverText = GameObject.Find("gameOverText").GetComponent<Text>();
         quitButton = GameObject.Find("quitButton").GetComponent<Button>();
         mmButton = GameObject.Find("mmButton").GetComponent<Button>();
+
+		sounds = GameObject.Find ("Sounds").GetComponent<Sounds> ();
 
         quitButton.onClick.AddListener(() => (Quittaa()));
         mmButton.onClick.AddListener(() => (MainMenuun()));
@@ -92,17 +103,19 @@ public class GameManager : MonoBehaviour {
         gameOverImg.gameObject.SetActive(true);
         if (voitto) {
             gameOverText.text = "You win!";
+			voittoImage.gameObject.SetActive (true);
         } else {
             gameOverText.text = "Game over";
+			havioImage.gameObject.SetActive (true);
         }
-        StartCoroutine(Liikutakuva());
+		StartCoroutine(Liikutakuva(voitto));
     }
 
-    IEnumerator Liikutakuva() {
-        Vector3 endpos = new Vector3(350, 350, 0f);
+	IEnumerator Liikutakuva(bool voitto) {
+        Vector3 endpos = new Vector3(520, 500, 0f);
 
         float matka = (gameOverImg.transform.position - endpos).sqrMagnitude;
-        float speed = 5.0f;
+        float speed = 10.0f;
 
         while(matka > float.Epsilon) {
             Vector2 newPos = Vector2.MoveTowards(gameOverImg.transform.position, endpos, speed);
@@ -110,6 +123,9 @@ public class GameManager : MonoBehaviour {
             matka = (gameOverImg.transform.position - endpos).sqrMagnitude;
             yield return null;
         }
+
+		if (!voitto)
+			sounds.PlaySound (gameOverSound);
 
     }
 
