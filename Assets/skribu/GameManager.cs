@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -14,12 +16,27 @@ public class GameManager : MonoBehaviour {
     public bool enemyMoving;
     private float vuoroAika = 0.1f;
 
+    private Image gameOverImg;
+    private Button quitButton;
+    private Button mmButton;
+
+    public bool gameOver = false;
+
     // Pelin käynnistys
 	void Awake () {
         // Haetaan kenttäskribu
         kenttaScribu = GetComponent<BoardManager>();
 
-		loader = GameObject.Find ("Loader").GetComponent<Loader> ();
+        gameOverImg = GameObject.Find("gameOverImg").GetComponent<Image>();
+        quitButton = GameObject.Find("quitButton").GetComponent<Button>();
+        mmButton = GameObject.Find("mmButton").GetComponent<Button>();
+
+        quitButton.onClick.AddListener(() => (Quittaa()));
+        mmButton.onClick.AddListener(() => (MainMenuun()));
+		
+        gameOverImg.gameObject.SetActive(false);
+
+        loader = GameObject.Find ("Loader").GetComponent<Loader> ();
         // Luodaan vihollislista
         viholliset = new List<Enemy>();
         // Ajetaan kentänluonti
@@ -33,10 +50,11 @@ public class GameManager : MonoBehaviour {
 
     // Tarkistetaan onko pelaajan vuoro ja liikutetaan viholliset, jos ei ole.
     void Update () {
-        if (playerTurn || enemyMoving)
+        if (playerTurn || enemyMoving || gameOver)
             return;
 
         StartCoroutine(Liikutavihut());
+    
 	}
 
     // Vihollisen lisääminen listaan
@@ -66,5 +84,35 @@ public class GameManager : MonoBehaviour {
         // Liikkumisen jälkeen on pelaajan vuoro
         playerTurn = true;
         enemyMoving = false;
+    }
+
+    public void GameOver() {
+        gameOverImg.gameObject.SetActive(true);
+        StartCoroutine(Liikutakuva());
+    }
+
+    IEnumerator Liikutakuva() {
+        Vector3 endpos = new Vector3(350, 350, 0f);
+
+        float matka = (gameOverImg.transform.position - endpos).sqrMagnitude;
+        float speed = 5.0f;
+
+        while(matka > float.Epsilon) {
+            Vector2 newPos = Vector2.MoveTowards(gameOverImg.transform.position, endpos, speed);
+            gameOverImg.transform.position = newPos;
+            matka = (gameOverImg.transform.position - endpos).sqrMagnitude;
+            yield return null;
+        }
+
+    }
+
+    void MainMenuun() {
+        Destroy(GameObject.Find("Loader"));
+        Destroy(GameObject.Find("Sounds"));
+        SceneManager.LoadScene("Menu");
+    }
+
+    void Quittaa() {
+        Application.Quit();
     }
 }

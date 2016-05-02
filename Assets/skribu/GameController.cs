@@ -72,6 +72,11 @@ public class GameController : MonoBehaviour {
             Logger.Lisaa(enemy.GetNimi() + " hit player for " + enemy.GetDamage() + "dmg");
             enemy.animator.SetTrigger("enemyLyonti");
 
+            if (player.GetHealth() <= 0) {
+                gm.gameOver = true;
+                gm.GameOver();
+            }
+
         // Jos ruudussa on vihollinen, estetään liike
         } else if (hits.transform.tag == "enemy") {
             move = false;
@@ -101,6 +106,10 @@ public class GameController : MonoBehaviour {
 
         if (gm.enemyMoving || player.playerMoving)
             return;
+
+        if (gm.gameOver) {
+            return;
+        }
 
         // Haetaan gm-objekti
         player.playerMoving = true;
