@@ -71,13 +71,7 @@ public class GameController : MonoBehaviour {
             //Debug.Log(enemy.nimi + " hit player for " + enemy.damage + "dmg");
             Logger.Lisaa(enemy.GetNimi() + " hit player for " + enemy.GetDamage() + "dmg");
             enemy.animator.SetTrigger("enemyLyonti");
-
-            if (player.GetHealth() <= 0) {
-                sounds.PlaySound(player.kuole[player.aaniValinta]);
-				player.animator.SetTrigger ("kuolema");
-                gm.pause = true;
-                gm.GameOver(false);
-            }
+            CheckPelaaja(player);
 
         // Jos ruudussa on vihollinen, estetään liike
         } else if (hits.transform.tag == "enemy") {
@@ -112,6 +106,16 @@ public class GameController : MonoBehaviour {
         if (gm.pause) {
             return;
         }
+
+        player.askeleet++;
+
+        if (player.askeleet % 15 == 0) {
+            player.LisaaDmg(-10);
+            player.VahennaHp(10);
+            Logger.Lisaa("You hangover kicks in, lose 10dmg and 10hp");
+        }
+
+        CheckPelaaja(player);
 
         // Haetaan gm-objekti
         player.playerMoving = true;
@@ -337,7 +341,7 @@ public class GameController : MonoBehaviour {
         // Liikkumiskohteen ja position välinen neliö
         float sqrRemainingDistance = (player.transform.position - asd).sqrMagnitude;
         // Liikkumisaika
-        float speed = 0.1f;
+        float speed = 0.15f;
 
         // Liikutetaan kunnes ollaan oikeassa paikassa
         while (sqrRemainingDistance > float.Epsilon) {
@@ -354,7 +358,7 @@ public class GameController : MonoBehaviour {
         Vector3 asd = endpos;
         Rigidbody2D rb2D = enemy.gameObject.GetComponent<Rigidbody2D>();
         float sqrRemainingDistance = (enemy.transform.position - asd).sqrMagnitude;
-        float speed = 0.1f;
+        float speed = 0.15f;
 
         while (sqrRemainingDistance > float.Epsilon) {
             Vector3 newPos = Vector3.MoveTowards(rb2D.position, asd, speed);
@@ -369,5 +373,14 @@ public class GameController : MonoBehaviour {
         ajatusImg.gameObject.SetActive(true);
         yield return new WaitForSeconds(5);
         ajatusImg.gameObject.SetActive(false);
+    }
+
+    void CheckPelaaja(Player player) {
+        if (player.GetHealth() <= 0) {
+            sounds.PlaySound(player.kuole[player.aaniValinta]);
+            player.animator.SetTrigger ("kuolema");
+            gm.pause = true;
+            gm.GameOver(false);
+        }
     }
 }

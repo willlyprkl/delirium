@@ -12,6 +12,7 @@ public class Player : MonoBehaviour {
 	private int puutkaatuu = 0;
 	private int syotyMetsa = 0;
     public int aaniValinta;
+    public int askeleet = 0;
 
     // UI:n tekstit ja näppäimet
     private Button wButton;
@@ -50,8 +51,8 @@ public class Player : MonoBehaviour {
 
     void Start(){
         // Alustetaan statsit, haetaan napit ja tekstit
-        hp = 100;
-        attack = 50;
+        hp = 50;
+        attack = 20;
         aaniValinta = Random.Range(0, 3);
         animator = GetComponent<Animator>();
 		gc = GameObject.Find ("GameController").GetComponent<GameController> ();
@@ -70,6 +71,8 @@ public class Player : MonoBehaviour {
 		sButton.onClick.AddListener(() => (gc.Liiku(-1, "ve", this)));
 		nButton.onClick.AddListener(() => (gc.Liiku(1, "ve", this)));
 
+        HpText();
+        DmgText();
     }
 
     // HP:n lisäys
@@ -81,6 +84,8 @@ public class Player : MonoBehaviour {
     // HP:n vähennys
     public void VahennaHp(int a){
         hp -= a;
+        if (hp <= 0)
+            hp = 0;
         HpText();
     }
 
@@ -112,13 +117,13 @@ public class Player : MonoBehaviour {
 	public void Juotu () {
 		juotuMaara++;
 		if (juotuMaara == 5) {
-			LisaaHp (50);
-			LisaaDmg (10);
+			LisaaHp (10);
+			LisaaDmg (5);
 			Logger.Lisaa ("+++++ DRUNKENMASTER SURVIVOR ACHIEVEMENT: STAGE POWER FISTS +++++");
 		}
 		if (juotuMaara == 10) {
-			LisaaHp (50);
-			LisaaDmg (10);
+			LisaaHp (20);
+			LisaaDmg (5);
 			Logger.Lisaa ("+++++ DRUNKENMASTER SURVIVOR ACHIEVEMENT: UNLEASHED INNER BEAST +++++");
 		}
 	}
@@ -130,15 +135,15 @@ public class Player : MonoBehaviour {
 	public void puuIsDead() {
 		puutkaatuu++;
 		if (puutkaatuu == 20) {
-			LisaaDmg (15);
+			LisaaDmg (10);
 			Logger.Lisaa ("+++++ WOODCUTTER SURVIVOR ACHIEVEMENT: WOODY WOODPECKER +++++");
 		}
 	}
 	public void syoMetsa() {
 		syotyMetsa++;
 		if (syotyMetsa == 10) {
-			LisaaHp (15);
-			LisaaDmg (15);
+			LisaaHp (10);
+			LisaaDmg (5);
 			Logger.Lisaa ("+++++ MUSHROOMS SURVIVOR ACHIEVEMENT: SECRET PSYCHEDELIC TRIP +++++");
 		}
 	}

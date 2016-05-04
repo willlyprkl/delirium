@@ -153,8 +153,8 @@ public class BoardManager : MonoBehaviour {
             juomaCount.maximum = 20;
             ruokaCount.minimum = 12;
             ruokaCount.maximum = 20;
-            aseCount.minimum = 8;
-            aseCount.maximum = 12;
+            aseCount.minimum = 4;
+            aseCount.maximum = 8;
             metsaCount.minimum = 80;
             metsaCount.maximum = 100;
             metsapropCount.minimum = 15;
