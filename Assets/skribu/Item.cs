@@ -21,23 +21,23 @@ public class Item : MonoBehaviour {
 		if (tyyppi == 1) {
 			//1 = kalja
 			nimi = "Kaljan";
-			hp = 10;
-			damage = 10;
+			hp = 5;
+			damage = 5;
 			juotuMaara += 1;
 		} else if (tyyppi == 2) {
 			//2 = viina
 			nimi = "Viinaa";
-			hp = 25;
-			damage = 15;
+			hp = 10;
+			damage = 5;
 			juotuMaara += 1;
 		} else if (tyyppi == 3) {
 			//3 = marjat
 			nimi = "Marjoja";
-			hp = 15;
+			hp = 10;
 		} else if (tyyppi == 4) {
 			//4 = tatit
 			nimi = "Tatteja";
-			hp = 15;
+			hp = 10;
 			damage = 5;
 		} else if (tyyppi == 5) {
 			//5 = kärpässienet
@@ -49,29 +49,29 @@ public class Item : MonoBehaviour {
 		} else if (tyyppi == 6) {
 			//6 = kirves
 			nimi = "Kirves";
-			damage = 25;
+			damage = 10;
 		} else if (tyyppi == 7) {
 			//7 = keppi
 			nimi = "Keppi";
-			damage = 10;
+			damage = 5;
 		} else if (tyyppi == 8) {
 			//8 = vasara
 			nimi = "Vasara";
-			damage = 10;
+			damage = 5;
 		} else if (tyyppi == 9) {
 			//9 = putki
 			nimi = "Putki";
-			damage = 15;
+			damage = 10;
 
         } else if (tyyppi == 10) {
             //10 = munat
             nimi = "Munat";
-            hp = 15;
+            hp = 5;
             damage = 5;
 		} else if (tyyppi == 11) {
 			//10 = munat
 			nimi = "Marjoja";
-			hp = 15;
+			hp = 10;
 		}
 
 
