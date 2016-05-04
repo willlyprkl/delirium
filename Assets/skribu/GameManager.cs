@@ -112,15 +112,15 @@ public class GameManager : MonoBehaviour {
     }
 
 	IEnumerator Liikutakuva(bool voitto) {
-        Vector3 endpos = new Vector3(520, 500, 0f);
+        Vector3 endpos = new Vector3(-150, 0, 0f);
 
-        float matka = (gameOverImg.transform.position - endpos).sqrMagnitude;
+        float matka = (gameOverImg.transform.localPosition - endpos).sqrMagnitude;
         float speed = 10.0f;
 
         while(matka > float.Epsilon) {
-            Vector2 newPos = Vector2.MoveTowards(gameOverImg.transform.position, endpos, speed);
-            gameOverImg.transform.position = newPos;
-            matka = (gameOverImg.transform.position - endpos).sqrMagnitude;
+            Vector2 newPos = Vector2.MoveTowards(gameOverImg.transform.localPosition, endpos, speed);
+            gameOverImg.transform.localPosition = newPos;
+            matka = (gameOverImg.transform.localPosition - endpos).sqrMagnitude;
             yield return null;
         }
 

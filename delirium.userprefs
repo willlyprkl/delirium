@@ -1,18 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\skribu\MainMenu.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\skribu\GameController.cs">
     <Files>
-      <File FileName="Assets\skribu\Enemy.cs" Line="1" Column="1" />
-      <File FileName="Assets\skribu\GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\skribu\Loader.cs" Line="1" Column="1" />
-      <File FileName="Assets\skribu\MainMenu.cs" Line="188" Column="3" />
-      <File FileName="Assets\skribu\BoardManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\skribu\MainMenu.cs" Line="126" Column="45" />
+      <File FileName="Assets\skribu\GameManager.cs" Line="131" Column="5" />
       <File FileName="Assets\skribu\Logger.cs" Line="1" Column="1" />
-      <File FileName="Assets\skribu\Player.cs" Line="1" Column="1" />
+      <File FileName="Assets\skribu\Loader.cs" Line="1" Column="1" />
+      <File FileName="Assets\skribu\BoardManager.cs" Line="222" Column="9" />
+      <File FileName="Assets\skribu\Player.cs" Line="41" Column="26" />
       <File FileName="Assets\skribu\Item.cs" Line="1" Column="1" />
       <File FileName="Assets\skribu\Forest.cs" Line="1" Column="1" />
-      <File FileName="Assets\skribu\Sounds.cs" Line="1" Column="1" />
-      <File FileName="Assets\skribu\GameController.cs" Line="228" Column="1" />
+      <File FileName="Assets\skribu\Sounds.cs" Line="52" Column="5" />
+      <File FileName="Assets\skribu\GameController.cs" Line="68" Column="60" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
