@@ -6,15 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-    // Kenttäskribu pelialueen luontia varten
-	public Loader loader;
+    private Sounds sounds;
+    public Loader loader;
     public BoardManager kenttaScribu;
-    // Pelaajan vuoro bool
+
     public bool playerTurn = true;
-    // Vihollislista
-    public List<Enemy> viholliset;
+    public bool pause = false;
     public bool enemyMoving;
+
     private float vuoroAika = 0.1f;
+
+    public List<Enemy> viholliset;
 
     private Image gameOverImg;
 	private Image voittoImage;
@@ -24,13 +26,8 @@ public class GameManager : MonoBehaviour {
     private Button mmButton;
 
 	public AudioClip gameOverSound;
-	private Sounds sounds;
 
-    public bool pause = false;
-
-    // Pelin käynnistys
-	void Awake () {
-        // Haetaan kenttäskribu
+    void Awake () {
         kenttaScribu = GetComponent<BoardManager>();
 
         gameOverImg = GameObject.Find("gameOverImg").GetComponent<Image>();
@@ -70,12 +67,10 @@ public class GameManager : MonoBehaviour {
     
 	}
 
-    // Vihollisen lisääminen listaan
     public void LisaaVihuListaan(Enemy x) {
         viholliset.Add(x);
     }
 
-    // Vihollisten liikuttaminen
     IEnumerator Liikutavihut(){
 
         // Varmistetaan, että ei ole pelaajan vuoro
@@ -87,6 +82,7 @@ public class GameManager : MonoBehaviour {
         if (viholliset.Count >= 1){
             for (int i = 0; i < viholliset.Count; i++){
                 viholliset[i].LiikuEnemy();
+                // Jos vihollinen aggroaa, odotetaan vuoronajan
                 if (viholliset[i].moves)
                     yield return new WaitForSeconds(vuoroAika);
             }
@@ -100,8 +96,10 @@ public class GameManager : MonoBehaviour {
         enemyMoving = false;
     }
 
+    // Gameovertilanne
     public void GameOver(bool voitto) {
         gameOverImg.gameObject.SetActive(true);
+        // Jos voitetaan valitaan oikea kuva ja pistetään oikea teksti ja vice versa
         if (voitto) {
             gameOverText.text = "You win!";
 			voittoImage.gameObject.SetActive (true);
@@ -112,6 +110,7 @@ public class GameManager : MonoBehaviour {
 		StartCoroutine(Liikutakuva(voitto));
     }
 
+    // Gameoverkuvan liikutus
 	IEnumerator Liikutakuva(bool voitto) {
         Vector3 endpos = new Vector3(-150, 0, 0f);
 

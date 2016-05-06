@@ -128,6 +128,11 @@ public class BoardManager : MonoBehaviour {
 
     // Setuppi
 	public void Setuppi(int koko, int vaikeus) {
+        /*
+         * Kentän koko ja itemien lukumäärä määräytyy valitun koon mukaan.
+         * Vihollisten lukumäärä valitun vaikeusasteen.
+         */
+
         if (koko <= 1) {
             sarakkeet = 8;
             rivit = 8;
@@ -202,8 +207,8 @@ public class BoardManager : MonoBehaviour {
             vihollisCount.maximum = 5;
 
         } else if (vaikeus <= 1 && koko == 2) {
-            vihollisCount.minimum = 2;
-            vihollisCount.maximum = 3;
+            vihollisCount.minimum = 3;
+            vihollisCount.maximum = 5;
         } else if (vaikeus == 2 && koko == 2) {
             vihollisCount.minimum = 4;
             vihollisCount.maximum = 7;

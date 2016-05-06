@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class Forest : MonoBehaviour {
+    
+    //Puiden kaatuminen parista lyönnistä.
 
     private int hp = 2;
 

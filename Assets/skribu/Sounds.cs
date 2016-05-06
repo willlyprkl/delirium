@@ -11,6 +11,8 @@ public class Sounds : MonoBehaviour {
 
     public AudioClip tausta;
 
+    // Ääniensoittoluokka. Eri audiosourceja, jotta voidaan soittaa useita ääniä samaan aikaan.
+
     void Awake() {
         DontDestroyOnLoad(this);
 
@@ -59,6 +61,7 @@ public class Sounds : MonoBehaviour {
     }
 
     public void LiikeSound(AudioClip sound) {
+        // Vähän pitchin vaihtelua variaation vuoksi.
         float randPitch = Random.Range(0.95f, 1.05f);
 
         playsound4.pitch = randPitch;
@@ -67,6 +70,4 @@ public class Sounds : MonoBehaviour {
 
         playsound4.Play();
     }
-	
-
 }

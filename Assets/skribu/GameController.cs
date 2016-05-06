@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour {
     private GameManager gm;
     private Sounds sounds;
  
+    // Splatit tuhottujen vihollisten ja puiden tilalle.
     public GameObject[] splat;
     public GameObject[] puuSplat;
 
@@ -28,9 +29,7 @@ public class GameController : MonoBehaviour {
         ajatusImg = GameObject.Find("ajatusImg").GetComponent<Image>(); 
 
         sounds = GameObject.Find("Sounds").GetComponent<Sounds>();
-        Debug.Log(sounds);
         ajatusImg.gameObject.SetActive(false);
-
 	}
 	
     // Vihollisen liikkuminen(suunta, hor/ver, vihollinen)
@@ -107,6 +106,7 @@ public class GameController : MonoBehaviour {
             return;
         }
 
+        // Lasketaan askeleet darraa varten.
         player.askeleet++;
 
         if (player.askeleet % 15 == 0) {
@@ -370,12 +370,14 @@ public class GameController : MonoBehaviour {
     }
         
 
+    // Ajatuskupla, jos vaatteet ei ole löytynyt.
     IEnumerator Ajatus() {
         ajatusImg.gameObject.SetActive(true);
         yield return new WaitForSeconds(5);
         ajatusImg.gameObject.SetActive(false);
     }
 
+    // Tarkistetaan onko pelaaja hengissä.
     void CheckPelaaja(Player player) {
         if (player.GetHealth() <= 0) {
             sounds.PlaySound(player.kuole[player.aaniValinta]);

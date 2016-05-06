@@ -6,6 +6,10 @@ public class Loader : MonoBehaviour {
 	private int vaikeus;
 	private int koko;
 
+    /*
+     * Loader säilyttää vaikeusasteen ja mapin koon tiedot,
+     *  jotka annetaan gamemanagerille mapin generoimista varten.
+     */
 	void Start () {
 		DontDestroyOnLoad (this);
 

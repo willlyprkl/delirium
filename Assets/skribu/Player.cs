@@ -75,13 +75,11 @@ public class Player : MonoBehaviour {
         DmgText();
     }
 
-    // HP:n lisäys
     public void LisaaHp(int a) {
         hp += a;
         HpText();
     }
 
-    // HP:n vähennys
     public void VahennaHp(int a){
         hp -= a;
         if (hp <= 0)
@@ -117,34 +115,54 @@ public class Player : MonoBehaviour {
 	public void Juotu () {
 		juotuMaara++;
 		if (juotuMaara == 5) {
-			LisaaHp (10);
-			LisaaDmg (5);
-			Logger.Lisaa ("+++++ DRUNKENMASTER SURVIVOR ACHIEVEMENT: STAGE POWER FISTS +++++");
+			LisaaHp (5);
+			Logger.Lisaa ("+++++ DRUNKENMASTER SURVIVOR ACHIEVEMENT: LIQUOUR FISTS +++++");
 		}
 		if (juotuMaara == 10) {
-			LisaaHp (20);
+			LisaaHp (5);
 			LisaaDmg (5);
-			Logger.Lisaa ("+++++ DRUNKENMASTER SURVIVOR ACHIEVEMENT: UNLEASHED INNER BEAST +++++");
+			Logger.Lisaa ("+++++ DRUNKENMASTER SURVIVOR ACHIEVEMENT: UNLEASHED INNER HOBO +++++");
 		}
+        if (juotuMaara == 15) {
+            LisaaHp (5);
+            LisaaDmg (5);
+            Logger.Lisaa ("+++++ DRUNKENMASTER SURVIVOR ACHIEVEMENT: SEVENTH GATE OF HELL +++++");
+        }
 	}
 
     public void Tappo() {
         tapot++;
         tapotText.text = "Kills: " + tapot;
+
+        if (tapot == 10) {
+            LisaaDmg(5);
+            Logger.Lisaa ("+++++ HUNTER SURVIVOR ACHIEVEMENT: MULTIKILL +++++");
+        }
+        if (tapot == 20) {
+            LisaaDmg(5);
+            Logger.Lisaa ("+++++ HUNTER SURVIVOR ACHIEVEMENT: MASSACRE +++++");
+        }
     }
 	public void puuIsDead() {
 		puutkaatuu++;
 		if (puutkaatuu == 20) {
-			LisaaDmg (10);
+			LisaaDmg (5);
 			Logger.Lisaa ("+++++ WOODCUTTER SURVIVOR ACHIEVEMENT: WOODY WOODPECKER +++++");
 		}
+        if (puutkaatuu == 40) {
+            LisaaDmg (5);
+            Logger.Lisaa ("+++++ WOODCUTTER SURVIVOR ACHIEVEMENT: TEXAS CHAINSAW +++++");
+        }
 	}
 	public void syoMetsa() {
 		syotyMetsa++;
-		if (syotyMetsa == 10) {
-			LisaaHp (10);
-			LisaaDmg (5);
-			Logger.Lisaa ("+++++ MUSHROOMS SURVIVOR ACHIEVEMENT: SECRET PSYCHEDELIC TRIP +++++");
+		if (syotyMetsa == 8) {
+			LisaaHp (5);
+			Logger.Lisaa ("+++++ MUSHROOMS SURVIVOR ACHIEVEMENT: SPIRIT MUSHROOMS +++++");
 		}
+        if (syotyMetsa == 16) {
+            LisaaHp (5);
+            Logger.Lisaa ("+++++ MUSHROOMS SURVIVOR ACHIEVEMENT: SECRET PSYCHEDELIC TRIP +++++");
+        }
 	}
 }

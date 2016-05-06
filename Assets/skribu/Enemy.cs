@@ -86,6 +86,7 @@ public class Enemy : MonoBehaviour {
 
         // Jos deltat on yli x, vihollinen ei "aggroa"
         if ((Mathf.Abs(dx) < 7) && (Mathf.Abs(dy) < 7)) {
+            // Moves liikkumattomia varten. -> gm.liikutavihut
             moves = true;
             // Jos x-suuntainen ero on isompi kuin y-suuntainen, niin liikutaan x-suuntaisesti
             if (Mathf.Abs(dx) > Mathf.Abs(dy)) {
@@ -106,31 +107,26 @@ public class Enemy : MonoBehaviour {
 
             // Liikutetaan vihollista
             gc.LiikuEn(x, suunt, this);
-            //Debug.Log(target.transform.position);
-            //Debug.Log(""+ nimi + ": " + x + "" + suunt);
+
         } else {
             moves = false;
         }
     }
 
-    // HP:n vähennys
     public void VahennaHp(int a) {
         hp -= a;
     }
 
-    // Palauttaa enemyn HP:t
     public int GetHealth() {
         if (this.hp < 0)
             return 0;
         return this.hp;
     }
 
-    // Palauttaa täydet hp:t
     public int GetFullHealth() {
         return this.fullHp;
     }
 
-    // Palauttaa damagen
     public int GetDamage() {
         return this.damage;
     }

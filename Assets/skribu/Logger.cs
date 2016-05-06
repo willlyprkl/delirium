@@ -12,7 +12,5 @@ public class Logger : MonoBehaviour {
         }
 
         logText.text = a + "\n" + logText.text;
-        //Debug.Log(logText.text);
     }
-
 }
