@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour {
     private int hp;
     private int fullHp;
 
+    public bool moves;
+
     public Animator animator;
     public AudioClip[] enemySound;
 
@@ -83,7 +85,8 @@ public class Enemy : MonoBehaviour {
 
 
         // Jos deltat on yli x, vihollinen ei "aggroa"
-        if ((Mathf.Abs(dx) < 5) && (Mathf.Abs(dy) < 5)) {
+        if ((Mathf.Abs(dx) < 7) && (Mathf.Abs(dy) < 7)) {
+            moves = true;
             // Jos x-suuntainen ero on isompi kuin y-suuntainen, niin liikutaan x-suuntaisesti
             if (Mathf.Abs(dx) > Mathf.Abs(dy)) {
                 // Jos x-eroavaisuus on miinuksella, liikutaan miinus-suuntaan
@@ -105,6 +108,8 @@ public class Enemy : MonoBehaviour {
             gc.LiikuEn(x, suunt, this);
             //Debug.Log(target.transform.position);
             //Debug.Log(""+ nimi + ": " + x + "" + suunt);
+        } else {
+            moves = false;
         }
     }
 

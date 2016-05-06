@@ -151,30 +151,44 @@ public class BoardManager : MonoBehaviour {
 
             juomaCount.minimum = 12;
             juomaCount.maximum = 20;
+            //min 4%
+            //max 8%
             ruokaCount.minimum = 12;
             ruokaCount.maximum = 20;
+            //min 4%
+            //max 8%
             aseCount.minimum = 4;
             aseCount.maximum = 8;
+            // min 2%
+            // max 3%
             metsaCount.minimum = 80;
             metsaCount.maximum = 100;
+            // min 31%
+            // max 39%
             metsapropCount.minimum = 15;
             metsapropCount.maximum = 30;
+            // min 6%
+            // max 12%
 
         } else if (koko >= 3) {
-            sarakkeet = 32;
-            rivit = 32;
-            // 1024;
+            sarakkeet = 25;
+            rivit = 25;
+            // 625;
 
-            juomaCount.minimum = 34;
-            juomaCount.maximum = 60;
-            ruokaCount.minimum = 34;
-            ruokaCount.maximum = 60;
-            aseCount.minimum = 24;
-            aseCount.maximum = 36;
-            metsaCount.minimum = 400;
-            metsaCount.maximum = 450;
-            metsapropCount.minimum = 100;
-            metsapropCount.maximum = 130;
+            juomaCount.minimum = 25;
+            juomaCount.maximum = 50;
+
+            ruokaCount.minimum = 25;
+            ruokaCount.maximum = 50;
+
+            aseCount.minimum = 12;
+            aseCount.maximum = 19;
+
+            metsaCount.minimum = 190;
+            metsaCount.maximum = 240;
+
+            metsapropCount.minimum = 38;
+            metsapropCount.maximum = 75;
         }
 
         if (vaikeus <= 1 && koko <= 1) {
@@ -198,14 +212,14 @@ public class BoardManager : MonoBehaviour {
             vihollisCount.maximum = 10;
 
         } else if (vaikeus <= 1 && koko >= 3) {
-            vihollisCount.minimum = 45;
-            vihollisCount.maximum = 55;
+            vihollisCount.minimum = 10;
+            vihollisCount.maximum = 12;
         } else if (vaikeus == 2 && koko >= 3) {
-            vihollisCount.minimum = 60;
-            vihollisCount.maximum = 80;
+            vihollisCount.minimum = 13;
+            vihollisCount.maximum = 15;
         } else if (vaikeus >= 3 && koko >= 3) {
-            vihollisCount.minimum = 150;
-            vihollisCount.maximum = 200;
+            vihollisCount.minimum = 18;
+            vihollisCount.maximum = 20;
         }
 
         // Luodaan kentän pohja

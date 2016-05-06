@@ -113,6 +113,7 @@ public class GameController : MonoBehaviour {
             player.LisaaDmg(-10);
             player.VahennaHp(10);
             Logger.Lisaa("You hangover kicks in, lose 10dmg and 10hp");
+            sounds.PlaySound(player.darra[player.aaniValinta]);
         }
 
         CheckPelaaja(player);

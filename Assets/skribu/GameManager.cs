@@ -87,7 +87,8 @@ public class GameManager : MonoBehaviour {
         if (viholliset.Count >= 1){
             for (int i = 0; i < viholliset.Count; i++){
                 viholliset[i].LiikuEnemy();
-                yield return new WaitForSeconds(vuoroAika);
+                if (viholliset[i].moves)
+                    yield return new WaitForSeconds(vuoroAika);
             }
         // Jos ei, lisätään vihollisia.
         } else {
